@@ -1,0 +1,421 @@
+:root {
+    --ai-primary: #2D7FF9;
+    --ai-secondary: #5856D6;
+    --ai-accent: #64D2FF;
+    --ai-dark: #2C2C2E;
+    --ai-light: #F2F2F7;
+    --neural-gradient: linear-gradient(135deg, var(--ai-primary), var(--ai-secondary));
+}
+
+/* Hero Section */
+.innovation-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #000;
+    padding: 2rem;
+    padding-top: calc(var(--header-height) + 2rem);
+}
+
+/* Animated Gradient Sphere */
+.gradient-sphere {
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle at center,
+        rgba(255, 59, 48, 0.2) 0%,
+        rgba(88, 86, 214, 0.2) 25%,
+        rgba(0, 199, 190, 0.2) 50%,
+        rgba(255, 149, 0, 0.2) 75%,
+        rgba(255, 45, 85, 0.2) 100%
+    );
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: sphereAnimation 15s infinite linear;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+@keyframes sphereAnimation {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    50% {
+        transform: rotate(180deg) scale(1.2);
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+    max-width: 800px;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.hero-content .highlight {
+    background: linear-gradient(90deg, #FF3B30, #5856D6, #00C7BE, #FF9500);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 700;
+}
+
+.hero-description {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+/* AI Research Section */
+.ai-research {
+    padding: 8rem 2rem;
+    background: #fff;
+}
+
+.research-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-top: 4rem;
+}
+
+.research-content h3 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.research-highlights {
+    list-style: none;
+    padding: 0;
+    margin-top: 2rem;
+}
+
+.research-highlights li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.research-highlights li i {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+}
+
+.research-image {
+    position: relative;
+}
+
+.floating-image {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Gaming AI Section */
+.gaming-ai {
+    padding: 8rem 2rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.gaming-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-top: 4rem;
+}
+
+.gaming-content h3 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.gaming-features {
+    list-style: none;
+    padding: 0;
+    margin-top: 2rem;
+}
+
+.gaming-features li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.gaming-features li i {
+    color: var(--secondary-color);
+    font-size: 1.25rem;
+}
+
+.parallax-image {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-out;
+}
+
+/* Innovation Showcase */
+.innovation-showcase {
+    padding: 8rem 2rem;
+    background: #fff;
+}
+
+.showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+}
+
+.showcase-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.showcase-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.card-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.card-icon i {
+    font-size: 2rem;
+    color: #fff;
+}
+
+.showcase-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.showcase-card p {
+    color: var(--text-color);
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+/* Future Vision Section */
+.future-vision {
+    padding: 8rem 2rem;
+    background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.vision-content {
+    max-width: 600px;
+    position: relative;
+    z-index: 2;
+}
+
+.vision-content h2 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(90deg, #FF3B30, #5856D6, #00C7BE, #FF9500);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.vision-content p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .research-grid,
+    .gaming-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .showcase-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .showcase-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gradient-sphere {
+        width: 400px;
+        height: 400px;
+    }
+
+    .research-content h3,
+    .gaming-content h3 {
+        font-size: 1.75rem;
+    }
+
+    .vision-content h2 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Animation for Parallax Effect */
+.parallax-image {
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+    transition: transform 0.3s ease-out;
+}
+
+/* Research Cards */
+.research-areas {
+    padding: 5rem 0;
+    background: var(--ai-dark);
+    color: var(--ai-light);
+}
+
+.research-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.research-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 150%;
+    background: var(--neural-gradient);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    filter: blur(40px);
+    z-index: -1;
+}
+
+.research-card:hover {
+    transform: translateY(-5px);
+}
+
+.research-card:hover .card-glow {
+    opacity: 0.1;
+}
+
+.research-card i {
+    font-size: 2.5rem;
+    color: var(--ai-accent);
+    margin-bottom: 1.5rem;
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.tech-tags span {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.9rem;
+}
+
+/* Animations */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--ai-accent) }
+}
+
+@keyframes blink {
+    from, to { opacity: 1 }
+    50% { opacity: 0 }
+} 

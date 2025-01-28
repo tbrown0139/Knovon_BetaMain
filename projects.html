@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore Knovon's innovative projects spanning mobile apps, web development, games, Minecraft mods, and server solutions. See how we're pushing technological boundaries and creating impactful solutions.">
+    <meta name="keywords" content="software projects, mobile app development, web applications, game development, Minecraft mods, server solutions, tech portfolio, Roblox games, educational games, Utah tech projects">
+    <meta name="author" content="Knovon">
+    <meta property="og:title" content="Knovon Projects | Innovative Software Solutions">
+    <meta property="og:description" content="Discover our portfolio of cutting-edge mobile apps, games, web applications, and server solutions.">
+    <meta property="og:image" content="Knovon_black.png">
+    <meta property="og:url" content="https://knovon.org/projects">
+    <title>Knovon Projects | Innovative Software Solutions</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="projects.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="Knovon_black.png" alt="Knovon Logo" class="logo-img">
+                </a>
+            </div>
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="projects.html" class="active">Projects</a></li>
+                    <li><a href="#careers">Careers</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="join-us-btn">Join Us</button>
+                <button class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="projects-hero">
+            <div class="projects-hero-content">
+                <h1>Our Projects</h1>
+                <p>Exploring innovation through technology and creative solutions</p>
+            </div>
+        </section>
+
+        <section class="projects-filter section-container">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+                <button class="filter-btn" data-filter="web">Websites & Web Apps</button>
+                <button class="filter-btn" data-filter="game">Games</button>
+                <button class="filter-btn" data-filter="mod">Mods</button>
+                <button class="filter-btn" data-filter="server">Servers</button>
+            </div>
+        </section>
+
+        <section class="projects-grid section-container">
+            <!-- Mobile Apps -->
+            <div class="project-card" data-category="mobile">
+                <div class="project-image">
+                    <img src="project-images/mobile-app1.jpg" alt="Mobile App Project">
+                    <div class="project-overlay">
+                        <a href="#" class="view-project">View Project</a>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Health Tracking App</h3>
+                    <p>A comprehensive health monitoring solution with AI-powered insights</p>
+                    <div class="project-tags">
+                        <span>React Native</span>
+                        <span>Firebase</span>
+                        <span>Machine Learning</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Web Apps -->
+            <div class="project-card" data-category="web">
+                <div class="project-image">
+                    <img src="project-images/webapp1.jpg" alt="Web App Project">
+                    <div class="project-overlay">
+                        <a href="#" class="view-project">View Project</a>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>E-Learning Platform</h3>
+                    <p>Interactive learning platform with real-time collaboration features</p>
+                    <div class="project-tags">
+                        <span>Next.js</span>
+                        <span>Node.js</span>
+                        <span>MongoDB</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Games -->
+            <div class="project-card" data-category="game">
+                <div class="project-image">
+                    <img src="project-images/game1.jpg" alt="Game Project">
+                    <div class="project-overlay">
+                        <a href="#" class="view-project">View Project</a>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Adventure Quest VR</h3>
+                    <p>Virtual reality adventure game with immersive storytelling</p>
+                    <div class="project-tags">
+                        <span>Unity</span>
+                        <span>C#</span>
+                        <span>VR</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mods -->
+            <div class="project-card" data-category="mod">
+                <div class="project-image">
+                    <img src="project-images/mod1.jpg" alt="Mod Project">
+                    <div class="project-overlay">
+                        <a href="#" class="view-project">View Project</a>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Minecraft Education Mod</h3>
+                    <p>Educational mod teaching programming concepts through gameplay</p>
+                    <div class="project-tags">
+                        <span>Java</span>
+                        <span>Minecraft Forge</span>
+                        <span>Education</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Servers -->
+            <div class="project-card" data-category="server">
+                <div class="project-image">
+                    <img src="project-images/server1.jpg" alt="Server Project">
+                    <div class="project-overlay">
+                        <a href="#" class="view-project">View Project</a>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Cloud Gaming Server</h3>
+                    <p>High-performance game streaming server infrastructure</p>
+                    <div class="project-tags">
+                        <span>AWS</span>
+                        <span>Docker</span>
+                        <span>Kubernetes</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-cta section-container">
+            <div class="cta-content">
+                <h2>Have a Project in Mind?</h2>
+                <p>Let's collaborate and bring your ideas to life</p>
+                <button class="primary-btn">Start a Project</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p>Email: hello@knovon.org</p>
+                <p>Phone: (801) 987-0671</p>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Connect on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Knovon. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="projects.js"></script>
+</body>
+</html> 
