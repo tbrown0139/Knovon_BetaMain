@@ -1,9 +1,29 @@
-// Import Firebase auth
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+// Initialize Firebase App
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js';
+import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js';
 
-// Wait for DOM content to be loaded
+// Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyAikYjF9ZY1gMpnpmfJStUF9-uqrqSJWV0",
+    authDomain: "alohamaile.firebaseapp.com",
+    databaseURL: "https://alohamaile.firebaseio.com",
+    projectId: "alohamaile",
+    storageBucket: "alohamaile.firebasestorage.app",
+    messagingSenderId: "222665399871",
+    appId: "1:222665399871:web:367c77659213659058628a"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Main functionality
 document.addEventListener('DOMContentLoaded', () => {
-    // Remove the overflow: hidden from body immediately
+    // Remove loading screen immediately
+    const loading = document.querySelector('.loading');
+    if (loading) {
+        loading.remove();
+    }
     document.body.style.overflow = 'visible';
 
     // Mobile menu functionality
@@ -87,45 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-    // Loading Screen Animation
-    const loading = document.querySelector('.loading');
-    if (loading) {
-        const loadingMessage = document.querySelector('.loading-message');
-        const messages = [
-            'Initializing',
-            'Almost Ready'
-        ];
-        
-        let messageIndex = 0;
-        
-        const updateMessage = () => {
-            if (messageIndex < messages.length) {
-                loadingMessage.style.opacity = '0';
-                setTimeout(() => {
-                    loadingMessage.textContent = messages[messageIndex];
-                    loadingMessage.style.opacity = '1';
-                    messageIndex++;
-                }, 100);
-            }
-        };
-        
-        updateMessage();
-        const messageInterval = setInterval(updateMessage, 500);
-        
-        // Hide loading screen
-        const hideLoader = () => {
-            clearInterval(messageInterval);
-            loading.classList.add('fade-out');
-            setTimeout(() => {
-                loading.style.display = 'none';
-                document.body.style.overflow = 'visible';
-            }, 200);
-        };
-
-        // Start hiding the loader after a shorter delay
-        setTimeout(hideLoader, 1000);
-    }
 
     // Typing effect
     const dynamicText = document.querySelector('.dynamic-text');
@@ -226,9 +207,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     `;
     document.head.appendChild(fadeInStyle);
-
-    // Authentication state handling
-    const auth = getAuth();
 
     // Update login button based on auth state
     function updateLoginButton() {
