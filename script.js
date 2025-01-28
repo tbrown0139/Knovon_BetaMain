@@ -1,3 +1,6 @@
+// Import Firebase auth
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+
 // Wait for DOM content to be loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Remove the overflow: hidden from body immediately
@@ -77,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     block: 'start'
                 });
                 // Close mobile menu if open
-                if (mobileMenu.classList.contains('active')) {
+                if (mobileMenu && mobileMenu.classList.contains('active')) {
                     mobileMenu.classList.remove('active');
                     document.body.style.overflow = '';
                 }
@@ -87,41 +90,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Loading Screen Animation
     const loading = document.querySelector('.loading');
-    const loadingMessage = document.querySelector('.loading-message');
-    
-    const messages = [
-        'Initializing',
-        'Almost Ready'
-    ];
-    
-    let messageIndex = 0;
-    
-    const updateMessage = () => {
-        if (messageIndex < messages.length) {
-            loadingMessage.style.opacity = '0';
+    if (loading) {
+        const loadingMessage = document.querySelector('.loading-message');
+        const messages = [
+            'Initializing',
+            'Almost Ready'
+        ];
+        
+        let messageIndex = 0;
+        
+        const updateMessage = () => {
+            if (messageIndex < messages.length) {
+                loadingMessage.style.opacity = '0';
+                setTimeout(() => {
+                    loadingMessage.textContent = messages[messageIndex];
+                    loadingMessage.style.opacity = '1';
+                    messageIndex++;
+                }, 100);
+            }
+        };
+        
+        updateMessage();
+        const messageInterval = setInterval(updateMessage, 500);
+        
+        // Hide loading screen
+        const hideLoader = () => {
+            clearInterval(messageInterval);
+            loading.classList.add('fade-out');
             setTimeout(() => {
-                loadingMessage.textContent = messages[messageIndex];
-                loadingMessage.style.opacity = '1';
-                messageIndex++;
-            }, 100);
-        }
-    };
-    
-    updateMessage();
-    const messageInterval = setInterval(updateMessage, 500);
-    
-    // Hide loading screen
-    const hideLoader = () => {
-        clearInterval(messageInterval);
-        loading.classList.add('fade-out');
-        setTimeout(() => {
-            loading.style.display = 'none';
-            document.body.style.overflow = 'visible';
-        }, 200);
-    };
+                loading.style.display = 'none';
+                document.body.style.overflow = 'visible';
+            }, 200);
+        };
 
-    // Start hiding the loader after a shorter delay
-    setTimeout(hideLoader, 1000);
+        // Start hiding the loader after a shorter delay
+        setTimeout(hideLoader, 1000);
+    }
 
     // Typing effect
     const dynamicText = document.querySelector('.dynamic-text');
@@ -185,67 +189,85 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Innovation Page Interactions
-    document.addEventListener('DOMContentLoaded', function() {
-        // Parallax effect for images
-        const parallaxImage = document.querySelector('.parallax-image');
-        if (parallaxImage) {
-            document.addEventListener('mousemove', (e) => {
-                const { clientX, clientY } = e;
-                const { innerWidth, innerHeight } = window;
-                
-                const xAxis = (clientX - innerWidth / 2) / 25;
-                const yAxis = (clientY - innerHeight / 2) / 25;
-                
-                parallaxImage.style.transform = `perspective(1000px) rotateY(${xAxis}deg) rotateX(${-yAxis}deg)`;
-            });
-        }
-
-        // Gradient sphere animation
-        const sphere = document.querySelector('.gradient-sphere');
-        if (sphere) {
-            document.addEventListener('mousemove', (e) => {
-                const { clientX, clientY } = e;
-                const { innerWidth, innerHeight } = window;
-                
-                const moveX = (clientX - innerWidth / 2) / 50;
-                const moveY = (clientY - innerHeight / 2) / 50;
-                
-                sphere.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${moveX * 2}deg)`;
-            });
-        }
-
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        // Observe elements
-        const elements = document.querySelectorAll('.research-grid, .gaming-grid, .showcase-card');
-        elements.forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-            observer.observe(el);
+    // Parallax effect for images
+    const parallaxImage = document.querySelector('.parallax-image');
+    if (parallaxImage) {
+        document.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const { innerWidth, innerHeight } = window;
+            
+            const xAxis = (clientX - innerWidth / 2) / 25;
+            const yAxis = (clientY - innerHeight / 2) / 25;
+            
+            parallaxImage.style.transform = `perspective(1000px) rotateY(${xAxis}deg) rotateX(${-yAxis}deg)`;
         });
-    });
+    }
 
-    // Add fade-in animation class
+    // Gradient sphere animation
+    const sphere = document.querySelector('.gradient-sphere');
+    if (sphere) {
+        document.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const { innerWidth, innerHeight } = window;
+            
+            const moveX = (clientX - innerWidth / 2) / 50;
+            const moveY = (clientY - innerHeight / 2) / 50;
+            
+            sphere.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${moveX * 2}deg)`;
+        });
+    }
+
+    // Create fade-in animation style
     const fadeInStyle = document.createElement('style');
     fadeInStyle.textContent = `
-        .fade-in {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     `;
     document.head.appendChild(fadeInStyle);
+
+    // Authentication state handling
+    const auth = getAuth();
+
+    // Update login button based on auth state
+    function updateLoginButton() {
+        const loginBtns = document.querySelectorAll('.login-btn');
+        const userName = localStorage.getItem('userName');
+
+        loginBtns.forEach(btn => {
+            if (userName) {
+                btn.innerHTML = `Aloha ${userName} <i class="fas fa-user"></i>`;
+                btn.onclick = handleSignOut;
+            } else {
+                btn.innerHTML = `Login <i class="fas fa-user"></i>`;
+                btn.onclick = () => window.location.href = 'login.html';
+            }
+        });
+    }
+
+    // Handle sign out
+    async function handleSignOut() {
+        try {
+            await signOut(auth);
+            localStorage.removeItem('userName');
+            updateLoginButton();
+            window.location.href = 'index.html';
+        } catch (error) {
+            console.error('Error signing out:', error);
+        }
+    }
+
+    // Listen for auth state changes
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            localStorage.setItem('userName', user.displayName || user.email.split('@')[0]);
+        } else {
+            localStorage.removeItem('userName');
+        }
+        updateLoginButton();
+    });
+
+    // Initialize login button state
+    updateLoginButton();
 }); 

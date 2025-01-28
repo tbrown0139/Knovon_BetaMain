@@ -49,4 +49,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    const phoneCard = document.querySelector('a[href^="tel:"]');
+    const popup = document.getElementById('phoneNotice');
+    let phoneNumber = phoneCard.getAttribute('href').replace('tel:', '');
+
+    phoneCard.addEventListener('click', function(e) {
+        e.preventDefault();
+        popup.classList.add('active');
+    });
+
+    window.continueToCall = function() {
+        window.location.href = `tel:${phoneNumber}`;
+        popup.classList.remove('active');
+    };
+
+    // Close popup when clicking outside
+    popup.addEventListener('click', function(e) {
+        if (e.target === popup) {
+            popup.classList.remove('active');
+        }
+    });
 }); 

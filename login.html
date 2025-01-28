@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login to your Knovon account to access exclusive features and personalized content.">
+    <meta name="keywords" content="knovon login, member access, account login">
+    <meta name="author" content="Knovon">
+    <title>Login | Knovon</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Include the header from header.html -->
+    <main class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <img src="images/Knovon_black.png" alt="Knovon Logo" class="login-logo">
+                <h1>Welcome Back</h1>
+                <p>Sign in to continue to Knovon</p>
+            </div>
+            <div class="login-methods">
+                <button class="social-login google-login">
+                    <i class="fab fa-google"></i>
+                    Continue with Google
+                </button>
+                <div class="divider">
+                    <span>or</span>
+                </div>
+            </div>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-input">
+                        <input type="password" id="password" name="password" required>
+                        <button type="button" class="toggle-password">
+                            <i class="far fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <span>Remember me</span>
+                    </label>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                <button type="submit" class="login-btn">Sign In</button>
+            </form>
+            <div class="signup-prompt">
+                <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        // Import the functions you need from the SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAikYjF9ZY1gMpnpmfJStUF9-uqrqSJWV0",
+            authDomain: "alohamaile.firebaseapp.com",
+            databaseURL: "https://alohamaile.firebaseio.com",
+            projectId: "alohamaile",
+            storageBucket: "alohamaile.firebasestorage.app",
+            messagingSenderId: "222665399871",
+            appId: "1:222665399871:web:367c77659213659058628a"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        // Handle form submission
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                // Store user info in localStorage
+                localStorage.setItem('userName', user.displayName || user.email.split('@')[0]);
+                window.location.href = 'index.html'; // Redirect to home page
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        });
+
+        // Handle Google Sign In
+        document.querySelector('.google-login').addEventListener('click', async () => {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                // Store user info in localStorage
+                localStorage.setItem('userName', user.displayName);
+                window.location.href = 'index.html'; // Redirect to home page
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        });
+
+        // Toggle password visibility
+        document.querySelector('.toggle-password').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = this.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+    </script>
+</body>
+</html> 

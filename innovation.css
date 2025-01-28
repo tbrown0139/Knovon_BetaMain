@@ -1,3 +1,9 @@
+/* Reset body overflow */
+body {
+    overflow: visible !important;
+    min-height: 100vh;
+}
+
 :root {
     --ai-primary: #2D7FF9;
     --ai-secondary: #5856D6;
