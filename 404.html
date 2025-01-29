@@ -9,254 +9,386 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .error-container {
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --accent: #db2777;
+            --background: #030712;
+            --surface: #111827;
+            --text: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            margin: 0;
+            background: var(--background);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
             min-height: 100vh;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        main {
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
             position: relative;
-            overflow: hidden;
-            margin-top: -80px; /* Adjust for header height */
+            min-height: calc(100vh - 160px); /* Adjust based on header/footer height */
+            background: radial-gradient(circle at 50% 50%, 
+                rgba(37, 99, 235, 0.1) 0%, 
+                rgba(124, 58, 237, 0.05) 25%, 
+                rgba(219, 39, 119, 0.02) 50%, 
+                transparent 100%
+            );
         }
 
-        .error-content {
-            width: 90%;
-            max-width: 1200px;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            padding: clamp(1.5rem, 5vw, 3rem);
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: clamp(15px, 2vw, 20px);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .error-title {
-            font-size: clamp(3rem, 10vw, 6rem);
-            margin-bottom: clamp(0.5rem, 2vw, 1rem);
-            background: linear-gradient(90deg, #0071e3, #00c7b7);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-            line-height: 1.2;
-        }
-
-        .error-subtitle {
-            font-size: clamp(1.2rem, 4vw, 1.8rem);
-            margin-bottom: clamp(1rem, 3vw, 2rem);
-            color: rgba(255, 255, 255, 0.9);
-            line-height: 1.3;
-        }
-
-        .error-message {
-            margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: clamp(1rem, 2.5vw, 1.2rem);
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .suggestions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
-            gap: clamp(1rem, 3vw, 2rem);
-            margin: clamp(1.5rem, 4vw, 3rem) 0;
-            width: 100%;
-        }
-
-        .suggestion-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: clamp(1.2rem, 3vw, 2rem);
-            border-radius: 15px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-        }
-
-        .suggestion-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(0, 113, 227, 0.3);
-        }
-
-        .suggestion-card i {
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-            background: linear-gradient(135deg, #0071e3, #00c7b7);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: clamp(0.8rem, 2vw, 1.2rem);
-        }
-
-        .suggestion-card h3 {
-            color: var(--white);
-            margin-bottom: 0.5rem;
-            font-size: clamp(1rem, 2.5vw, 1.3rem);
-        }
-
-        .suggestion-card p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: clamp(0.9rem, 2vw, 1rem);
-            margin-bottom: 0;
-            line-height: 1.4;
-        }
-
-        .home-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: linear-gradient(90deg, #0071e3, #00c7b7);
-            color: var(--white);
-            padding: clamp(0.8rem, 2vw, 1.2rem) clamp(1.5rem, 4vw, 2.5rem);
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-        }
-
-        .home-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 113, 227, 0.3);
-        }
-
-        .home-btn i {
-            font-size: clamp(1rem, 2.5vw, 1.2rem);
-        }
-
-        .animated-particles {
-            position: absolute;
+        .background-grid {
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            overflow: hidden;
-            z-index: 1;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 80%);
+            pointer-events: none;
         }
 
-        @media (max-width: 480px) {
-            .error-container {
+        .error-container {
+            text-align: center;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .error-title {
+            font-size: clamp(8rem, 20vw, 15rem);
+            font-weight: 800;
+            margin: 0;
+            line-height: 1;
+            position: relative;
+            background: linear-gradient(135deg, 
+                var(--primary), 
+                var(--secondary) 45%, 
+                var(--accent)
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 30px rgba(37, 99, 235, 0.3));
+            animation: textGlow 4s ease-in-out infinite alternate;
+        }
+
+        .error-title::after {
+            content: "404";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            -webkit-background-clip: text;
+            background-clip: text;
+            filter: blur(40px);
+            opacity: 0.8;
+            z-index: -1;
+        }
+
+        .error-subtitle {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin: 1rem 0;
+            color: var(--text);
+            font-weight: 600;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .error-message {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin: 1.5rem auto 3rem;
+            max-width: 600px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .button:hover::before {
+            transform: translateX(100%);
+        }
+
+        .button-primary {
+            background: var(--primary);
+            color: var(--text);
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .button-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-primary:hover {
+            box-shadow: 0 0 30px rgba(37, 99, 235, 0.4);
+        }
+
+        .button-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .suggestions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            perspective: 1000px;
+        }
+
+        .suggestion-link {
+            padding: 2rem;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .suggestion-link::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg,
+                rgba(37, 99, 235, 0.1),
+                rgba(124, 58, 237, 0.1)
+            );
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .suggestion-link:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.1),
+                0 0 30px rgba(37, 99, 235, 0.2);
+        }
+
+        .suggestion-link:hover::before {
+            opacity: 1;
+        }
+
+        .suggestion-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            position: relative;
+        }
+
+        .suggestion-title i {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .suggestion-description {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin: 0;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        @keyframes textGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 30px rgba(37, 99, 235, 0.3));
+            }
+            50% {
+                filter: drop-shadow(0 0 50px rgba(37, 99, 235, 0.5));
+            }
+        }
+
+        @media (max-width: 768px) {
+            main {
+                min-height: calc(100vh - 120px); /* Smaller offset for mobile */
                 padding: 1rem;
             }
 
-            .error-content {
-                padding: 1.2rem;
+            .error-container {
+                margin: 1rem auto;
+                padding: 1rem;
+            }
+
+            .error-title {
+                font-size: clamp(6rem, 15vw, 12rem);
+            }
+
+            .error-subtitle {
+                font-size: clamp(1.2rem, 3vw, 2rem);
+            }
+
+            .error-message {
+                font-size: 1rem;
+                margin: 1rem auto 2rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .button {
+                width: 100%;
+                justify-content: center;
+                padding: 0.875rem 1.5rem;
             }
 
             .suggestions {
                 gap: 1rem;
             }
 
-            .suggestion-card {
-                padding: 1rem;
-            }
-        }
-
-        @media (min-width: 481px) and (max-width: 768px) {
-            .error-container {
+            .suggestion-link {
                 padding: 1.5rem;
-            }
-
-            .error-content {
-                padding: 1.8rem;
             }
         }
 
         @media (min-width: 769px) and (max-width: 1024px) {
+            main {
+                min-height: calc(100vh - 140px);
+            }
+
             .error-container {
-                padding: 2rem;
+                margin: 1.5rem auto;
+                padding: 1.5rem;
             }
         }
 
-        @media (min-width: 1025px) {
-            .suggestions {
-                grid-template-columns: repeat(3, 1fr);
+        @media (prefers-reduced-motion: reduce) {
+            .error-title {
+                animation: none;
+            }
+
+            .button::before {
+                display: none;
+            }
+
+            .suggestion-link:hover {
+                transform: none;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header placeholder for navigation -->
     <header></header>
-
     <main>
+        <div class="background-grid"></div>
         <div class="error-container">
-            <div class="animated-particles"></div>
-            <div class="error-content">
-                <h1 class="error-title">404</h1>
-                <h2 class="error-subtitle">Page Not Found</h2>
-                <p class="error-message">Our AI systems couldn't locate the page you're looking for. But don't worry, we've got some suggestions that might help!</p>
-                
-                <div class="suggestions">
-                    <a href="about.html" class="suggestion-card">
-                        <i class="fas fa-building"></i>
-                        <h3>About Us</h3>
-                        <p>Learn about our mission and values</p>
-                    </a>
-                    <a href="careers.html" class="suggestion-card">
-                        <i class="fas fa-briefcase"></i>
-                        <h3>Careers</h3>
-                        <p>Join our innovative team</p>
-                    </a>
-                    <a href="projects.html" class="suggestion-card">
-                        <i class="fas fa-rocket"></i>
-                        <h3>Projects</h3>
-                        <p>Explore our latest innovations</p>
-                    </a>
-                </div>
-
-                <a href="index.html" class="home-btn">
+            <h1 class="error-title">404</h1>
+            <h2 class="error-subtitle">Page Not Found</h2>
+            <p class="error-message">
+                The page you're looking for seems to have vanished into the digital void. 
+                Let us help you find your way back.
+            </p>
+            
+            <div class="action-buttons">
+                <a href="index.html" class="button button-primary">
                     <i class="fas fa-home"></i>
-                    <span>Back to Home</span>
+                    Back to Homepage
+                </a>
+                <a href="contact.html" class="button button-secondary">
+                    <i class="fas fa-envelope"></i>
+                    Get in Touch
+                </a>
+            </div>
+
+            <div class="suggestions">
+                <a href="services.html" class="suggestion-link">
+                    <div class="suggestion-title">
+                        <i class="fas fa-rocket"></i>
+                        Our Solutions
+                    </div>
+                    <p class="suggestion-description">
+                        Discover our innovative technology solutions and services
+                    </p>
+                </a>
+                <a href="portfolio.html" class="suggestion-link">
+                    <div class="suggestion-title">
+                        <i class="fas fa-code"></i>
+                        Latest Work
+                    </div>
+                    <p class="suggestion-description">
+                        Explore our portfolio of successful projects and case studies
+                    </p>
+                </a>
+                <a href="about.html" class="suggestion-link">
+                    <div class="suggestion-title">
+                        <i class="fas fa-lightbulb"></i>
+                        About Us
+                    </div>
+                    <p class="suggestion-description">
+                        Learn about our vision and approach to innovation
+                    </p>
                 </a>
             </div>
         </div>
     </main>
-
-    <!-- Footer placeholder -->
     <footer></footer>
 
-    <!-- Load shared components first -->
     <script src="./js/shared.js"></script>
-    <script>
-        // Create animated particles
-        function createParticles() {
-            const container = document.querySelector('.animated-particles');
-            const particleCount = 50;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.cssText = `
-                    position: absolute;
-                    width: ${Math.random() * 3 + 1}px;
-                    height: ${Math.random() * 3 + 1}px;
-                    background: rgba(0, 113, 227, ${Math.random() * 0.5 + 0.1});
-                    border-radius: 50%;
-                    top: ${Math.random() * 100}%;
-                    left: ${Math.random() * 100}%;
-                    animation: float ${Math.random() * 10 + 10}s linear infinite;
-                    transform: translate(-50%, -50%);
-                `;
-                container.appendChild(particle);
-            }
-        }
-
-        // Initialize particles when the page loads
-        document.addEventListener('DOMContentLoaded', createParticles);
-    </script>
 </body>
 </html> 
