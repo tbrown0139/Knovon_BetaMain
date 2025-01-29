@@ -217,11 +217,39 @@ function handleSplashScreen() {
     }, 20);
 }
 
+// Initialize animations
+function initializeAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const fadeInObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    // Add fade-in class to elements
+    const elementsToAnimate = document.querySelectorAll('.value-card, .about-content, .about-image, .stat-item');
+    elementsToAnimate.forEach(element => {
+        element.classList.add('fade-in');
+        fadeInObserver.observe(element);
+    });
+}
+
 // Main functionality
 document.addEventListener('DOMContentLoaded', () => {
     // Add no-js class by default
     document.documentElement.classList.add('no-js');
+    
+    // Initialize splash screen
     handleSplashScreen();
+    
+    // Initialize animations
+    initializeAnimations();
 
     // Mobile menu functionality
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -260,31 +288,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-    // Add fade-in class to elements
-    const elementsToAnimate = document.querySelectorAll('.vision-card, .service-card, .hero-content, .hero-stats');
-    elementsToAnimate.forEach(element => {
-        element.classList.add('fade-in');
-    });
-
-    // Initialize scroll observer
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const fadeInObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, observerOptions);
-
-    // Observe fade-in elements
-    document.querySelectorAll('.fade-in').forEach(element => {
-        fadeInObserver.observe(element);
-    });
 
     // Smooth scroll functionality
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
