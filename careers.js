@@ -52,7 +52,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     <i class="fas ${getDepartmentIcon(position.Department)}"></i>
                     ${position.Department}
                 </p>
-                <p class="position-desc">${position.Description}</p>
+                <div class="position-details">
+                    <p class="position-desc">${position.Description}</p>
+                    <ul class="position-requirements">
+                        ${position.Requirements ? `
+                            ${position.Requirements.split(';').map(req => `
+                                <li><i class="fas fa-check-circle"></i>${req.trim()}</li>
+                            `).join('')}
+                        ` : ''}
+                    </ul>
+                </div>
                 <a href="${position['Link to apply']}" class="apply-btn" target="_blank">
                     <span>Apply Now</span>
                     <i class="fas fa-arrow-right"></i>
@@ -82,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'Software Development': 'fa-code',
             'Game Development': 'fa-gamepad',
             'Creative Design': 'fa-palette',
-            'Volunteer Management': 'fa-hands-helping',
+            'Human Resources': 'fa-users',
             'Operations': 'fa-cogs',
             'Innovation': 'fa-lightbulb'
         };
@@ -455,6 +464,119 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // Animated Particles
+    function createParticles() {
+        const particlesContainer = document.querySelector('.animated-particles');
+        const particleCount = 50;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.cssText = `
+                position: absolute;
+                width: ${Math.random() * 3 + 1}px;
+                height: ${Math.random() * 3 + 1}px;
+                background: rgba(0, 113, 227, ${Math.random() * 0.5 + 0.1});
+                border-radius: 50%;
+                top: ${Math.random() * 100}%;
+                left: ${Math.random() * 100}%;
+                animation: float ${Math.random() * 10 + 10}s linear infinite;
+                transform: translate(-50%, -50%);
+            `;
+            particlesContainer.appendChild(particle);
+        }
+    }
+
+    // Testimonial Slider
+    function initTestimonialSlider() {
+        const testimonials = document.querySelectorAll('.testimonial');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        const dotsContainer = document.querySelector('.slider-dots');
+        let currentIndex = 0;
+        let autoplayInterval;
+
+        // Create dots
+        testimonials.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.className = `dot ${index === 0 ? 'active' : ''}`;
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+
+        function updateSlider() {
+            testimonials.forEach((testimonial, index) => {
+                testimonial.classList.toggle('active', index === currentIndex);
+            });
+            
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        function goToSlide(index) {
+            currentIndex = index;
+            updateSlider();
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % testimonials.length;
+            updateSlider();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+            updateSlider();
+        }
+
+        // Event listeners
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+
+        // Auto advance slides
+        function startAutoplay() {
+            autoplayInterval = setInterval(nextSlide, 5000);
+        }
+
+        function stopAutoplay() {
+            clearInterval(autoplayInterval);
+        }
+
+        // Pause autoplay on hover
+        const testimonialSection = document.querySelector('.testimonials-section');
+        testimonialSection.addEventListener('mouseenter', stopAutoplay);
+        testimonialSection.addEventListener('mouseleave', startAutoplay);
+
+        // Start autoplay
+        startAutoplay();
+    }
+
+    // Initialize particles and slider when the page loads
+    createParticles();
+    initTestimonialSlider();
+
+    // Add keyframe animation for particles
+    const particleStyle = document.createElement('style');
+    particleStyle.textContent = `
+        @keyframes float {
+            0% {
+                transform: translate(-50%, -50%) translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) translateY(-100vh) translateX(${Math.random() * 200 - 100}px);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(particleStyle);
 });
 
 // Function to filter positions
