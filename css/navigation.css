@@ -1,11 +1,20 @@
 /* Navigation Styles */
+:root {
+    --header-height: 80px;
+    --nav-bg: #ffffff;
+    --nav-text: #333333;
+    --nav-hover: #007bff;
+    --dropdown-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
 .main-nav {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    background: white;
-    padding: 1rem 2rem;
+    height: var(--header-height);
+    background: var(--nav-bg);
+    padding: 0 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -22,12 +31,14 @@
 .logo-img {
     height: 100%;
     width: auto;
+    max-height: 40px;
 }
 
 .nav-container {
     display: flex;
     align-items: center;
     gap: 2rem;
+    height: 100%;
 }
 
 .nav-links {
@@ -36,29 +47,45 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    height: 100%;
+}
+
+.nav-links > li {
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .nav-links a {
-    color: #333;
+    color: var(--nav-text);
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .nav-links a:hover {
-    color: #007bff;
+    color: var(--nav-hover);
 }
 
 /* Dropdown Styles */
 .dropdown {
     position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .dropdown-trigger {
+    height: 100%;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     cursor: pointer;
+    padding: 0 1rem;
 }
 
 .mega-dropdown {
@@ -66,15 +93,15 @@
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    background: white;
+    background: var(--nav-bg);
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--dropdown-shadow);
     padding: 1.5rem;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
     min-width: 600px;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
 }
 
 .dropdown:hover .mega-dropdown {
@@ -108,9 +135,9 @@
 }
 
 .link-column h4 {
-    color: #666;
-    margin-bottom: 1rem;
+    color: var(--nav-text);
     font-size: 0.9rem;
+    margin-bottom: 1rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -126,17 +153,18 @@
 }
 
 .link-column a {
-    color: #333;
+    color: var(--nav-text);
     text-decoration: none;
     font-size: 0.9rem;
     transition: color 0.3s ease;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    padding: 0.5rem;
 }
 
 .link-column a:hover {
-    color: #007bff;
+    color: var(--nav-hover);
 }
 
 /* Featured Apps */
@@ -218,7 +246,7 @@
     border-radius: 8px;
     background: #f5f5f5;
     text-decoration: none;
-    color: #333;
+    color: var(--nav-text);
     transition: all 0.3s ease;
 }
 
@@ -241,7 +269,32 @@
     font-weight: 500;
 }
 
-/* Mobile Menu */
+/* Login Button */
+.nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.login-btn {
+    background: var(--nav-hover);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background: #0056b3;
+}
+
+/* Mobile Menu Button */
 .mobile-menu-btn {
     display: none;
     background: none;
@@ -254,18 +307,19 @@
     display: block;
     width: 24px;
     height: 2px;
-    background: #333;
+    background: var(--nav-text);
     margin: 4px 0;
     transition: all 0.3s ease;
 }
 
+/* Mobile Menu */
 .mobile-menu {
     position: fixed;
     top: 0;
     right: -100%;
     width: 100%;
     height: 100vh;
-    background: white;
+    background: var(--nav-bg);
     padding: 2rem;
     transition: right 0.3s ease;
     z-index: 1001;
@@ -285,6 +339,7 @@
 
 .mobile-logo {
     height: 30px;
+    width: auto;
 }
 
 .mobile-close-btn {
@@ -333,13 +388,13 @@
 .mobile-dropdown-content a {
     display: block;
     padding: 0.5rem;
-    color: #333;
+    color: var(--nav-text);
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .mobile-dropdown-content a:hover {
-    color: #007bff;
+    color: var(--nav-hover);
 }
 
 .mobile-menu-footer {
@@ -361,7 +416,7 @@
 }
 
 .mobile-social-links a:hover {
-    color: #007bff;
+    color: var(--nav-hover);
 }
 
 /* Responsive Design */
@@ -372,7 +427,8 @@
 }
 
 @media (max-width: 768px) {
-    .nav-links, .nav-buttons {
+    .nav-links, 
+    .nav-buttons {
         display: none;
     }
 
@@ -383,29 +439,8 @@
     .main-nav {
         padding: 0.5rem 1rem;
     }
-}
 
-/* Login Button */
-.login-btn {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 500;
-    transition: background-color 0.3s ease;
-}
-
-.login-btn:hover {
-    background: #0056b3;
-}
-
-.mobile-login {
-    width: 100%;
-    justify-content: center;
-    padding: 1rem;
+    .logo {
+        height: 30px;
+    }
 } 

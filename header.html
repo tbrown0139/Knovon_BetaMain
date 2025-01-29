@@ -1,5 +1,4 @@
-// Navigation and Footer Components
-const navigationHTML = `
+<!-- Header -->
 <nav class="main-nav">
     <div class="logo">
         <a href="index.html">
@@ -173,6 +172,9 @@ const navigationHTML = `
     </div>
     <nav class="mobile-nav">
         <ul class="mobile-nav-list">
+            <li>
+                <a href="index.html">Home</a>
+            </li>
             <li class="mobile-dropdown">
                 <button class="mobile-dropdown-trigger">
                     Innovations <i class="fas fa-chevron-down"></i>
@@ -221,113 +223,4 @@ const navigationHTML = `
             <a href="https://www.instagram.com/knovon/" target="_blank" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
         </div>
     </div>
-</div>
-`;
-
-const footerHTML = `
-<footer class="main-footer">
-    <div class="footer-content">
-        <div class="footer-grid">
-            <div class="footer-column">
-                <img src="images/Knovon_black.png" alt="Knovon Logo" class="footer-logo">
-                <p class="footer-description">Creating innovative technology solutions while providing real-world development opportunities.</p>
-                <div class="social-links">
-                    <a href="https://twitter.com/knovon_" target="_blank" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.linkedin.com/company/knovon/" target="_blank" aria-label="Connect on LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://www.instagram.com/knovon/" target="_blank" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-            <div class="footer-column">
-                <h4>Company</h4>
-                <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="team.html">Our Team</a></li>
-                    <li><a href="careers.html">Careers</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Solutions</h4>
-                <ul>
-                    <li><a href="software.html">Software Development</a></li>
-                    <li><a href="games.html">Game Development</a></li>
-                    <li><a href="innovation.html">Innovation Lab</a></li>
-                    <li><a href="apps.html">Mobile Apps</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Support</h4>
-                <ul>
-                    <li><a href="support.html">Help Center</a></li>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="terms.html">Terms of Service</a></li>
-                    <li><a href="sitemap.html">Sitemap</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; ${new Date().getFullYear()} Knovon. All rights reserved.</p>
-        </div>
-    </div>
-</footer>
-`;
-
-// Function to load components
-function loadComponents() {
-    // Load navigation
-    const headerContainer = document.querySelector('header');
-    if (headerContainer) {
-        headerContainer.innerHTML = navigationHTML;
-    }
-
-    // Load footer
-    const footerContainer = document.querySelector('footer');
-    if (footerContainer) {
-        footerContainer.innerHTML = footerHTML;
-    }
-
-    // Initialize mobile menu functionality
-    initializeMobileMenu();
-}
-
-// Initialize mobile menu functionality
-function initializeMobileMenu() {
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const mobileMenu = document.querySelector('.mobile-menu');
-    const mobileCloseBtn = document.querySelector('.mobile-close-btn');
-    const mobileDropdownTriggers = document.querySelectorAll('.mobile-dropdown-trigger');
-
-    if (mobileMenuBtn && mobileMenu) {
-        // Toggle mobile menu
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-
-        // Close mobile menu
-        mobileCloseBtn.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-
-        // Handle mobile dropdowns
-        mobileDropdownTriggers.forEach(trigger => {
-            trigger.addEventListener('click', () => {
-                const parent = trigger.parentElement;
-                
-                // Close other dropdowns
-                mobileDropdownTriggers.forEach(otherTrigger => {
-                    if (otherTrigger !== trigger) {
-                        otherTrigger.parentElement.classList.remove('active');
-                    }
-                });
-
-                // Toggle current dropdown
-                parent.classList.toggle('active');
-            });
-        });
-    }
-}
-
-// Load components when DOM is ready
-document.addEventListener('DOMContentLoaded', loadComponents); 
+</div> 
