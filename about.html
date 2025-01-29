@@ -110,77 +110,56 @@
             margin: 0 auto;
         }
 
-        .page-link-card {
-            background: var(--light-bg);
-            padding: 2.5rem 2rem;
+        .card.page-link-card {
+            background: var(--white);
             border-radius: 20px;
+            padding: 2rem;
             text-align: center;
-            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-decoration: none;
-            position: relative;
-            overflow: hidden;
+            color: var(--text-color);
         }
 
-        .page-link-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 1;
-        }
-
-        .page-link-card:hover::before {
-            opacity: 1;
-        }
-
-        .page-link-card:hover {
+        .card.page-link-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 160px;
+            overflow: hidden;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .page-link-card:hover .card-image img {
+            transform: scale(1.1);
         }
 
         .page-link-card i {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 2;
-            transition: color 0.3s ease;
-        }
-
-        .page-link-card:hover i {
-            color: var(--white);
+            margin-bottom: 1rem;
         }
 
         .page-link-card h3 {
             font-size: 1.5rem;
-            color: var(--text-color);
             margin-bottom: 1rem;
-            position: relative;
-            z-index: 2;
-            transition: color 0.3s ease;
-        }
-
-        .page-link-card:hover h3 {
-            color: var(--white);
+            color: var(--text-color);
         }
 
         .page-link-card p {
-            color: var(--text-color);
-            opacity: 0.8;
+            color: var(--text-color-light);
             line-height: 1.6;
-            position: relative;
-            z-index: 2;
-            transition: color 0.3s ease;
-        }
-
-        .page-link-card:hover p {
-            color: var(--white);
-            opacity: 1;
         }
 
         .about-content-section {
@@ -374,7 +353,7 @@
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
         .fade-in.visible {
@@ -1055,6 +1034,352 @@
                 padding: 2rem;
             }
         }
+
+        /* Hero Logo Styles */
+        .hero-logo {
+            max-width: 200px;
+            margin-top: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        /* Updated Brands Section Styles */
+        .brands-section {
+            padding: 5rem 0;
+            background: var(--light-bg);
+        }
+
+        .text-center {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .brand-logo-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .brand-logo-wrapper:hover {
+            transform: translateY(-5px);
+        }
+
+        .brand-logo {
+            max-width: 180px;
+            height: auto;
+            filter: grayscale(100%) contrast(1.2);
+            transition: filter 0.3s ease, transform 0.3s ease;
+            object-fit: contain;
+        }
+
+        .brand-logo-wrapper:hover .brand-logo {
+            filter: grayscale(0%) contrast(1);
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 1200px) {
+            .brands-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .brands-section {
+                padding: 3rem 0;
+            }
+
+            .brands-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .brand-logo {
+                max-width: 150px;
+            }
+        }
+
+        .about-highlights {
+            margin-top: 2rem;
+        }
+
+        .about-highlights h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+        }
+
+        .highlight-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .highlight-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        .highlight-list li i {
+            color: var(--primary-color);
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .logo-showcase {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .main-brand {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .main-brand-caption {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .showcase-logo {
+            max-width: 150px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .main-logo {
+            max-width: 200px;
+            margin-bottom: 1rem;
+        }
+
+        .showcase-logo:hover {
+            transform: scale(1.05);
+        }
+
+        /* Brands Carousel Styles */
+        .brands-carousel {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .carousel-track {
+            display: flex;
+            animation: scroll 30s linear infinite;
+            width: calc(180px * 18); /* Double the items for seamless loop */
+        }
+
+        .brand-logo-wrapper {
+            flex: 0 0 180px;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .brand-logo {
+            max-width: 150px;
+            height: auto;
+            filter: grayscale(100%) contrast(1.2);
+            transition: filter 0.3s ease, transform 0.3s ease;
+            object-fit: contain;
+        }
+
+        .brand-logo-wrapper:hover .brand-logo {
+            filter: grayscale(0%) contrast(1);
+            transform: scale(1.05);
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-180px * 9)); /* Half of total width */
+            }
+        }
+
+        /* Clone items for seamless loop */
+        .carousel-track::after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 100%;
+            height: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .showcase-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
+            }
+
+            .showcase-logo {
+                max-width: 120px;
+            }
+
+            .main-logo {
+                max-width: 160px;
+            }
+
+            .brand-logo-wrapper {
+                flex: 0 0 150px;
+            }
+
+            .brand-logo {
+                max-width: 120px;
+            }
+
+            @keyframes scroll {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(calc(-150px * 9));
+                }
+            }
+        }
+
+        /* Content Section Styles */
+        .content-image-float {
+            float: right;
+            width: 200px;
+            margin: 0 0 1rem 2rem;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .float-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .mission-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .mission-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        /* Showcase Styles */
+        .about-showcase {
+            position: relative;
+        }
+
+        .showcase-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.1;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+
+        .showcase-bg-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 1200px) {
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+
+            .content-image-float {
+                float: none;
+                width: 100%;
+                margin: 0 0 1.5rem 0;
+            }
+
+            .card-image {
+                height: 140px;
+            }
+
+            .mission-image {
+                height: 160px;
+            }
+
+            .about-showcase {
+                margin-top: 2rem;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -1081,8 +1406,9 @@
                     <div class="shape"></div>
                 </div>
                 <div class="hero-content">
-                    <h1>Shaping Tomorrow's Tech Leaders</h1>
-                    <p class="hero-description">From Kauai to the world, we're empowering youth through innovative technology education and hands-on development experience.</p>
+                    <h1>Innovating Tomorrow's Technology</h1>
+                    <p class="hero-description">From Kauai to the world, we're a dynamic team of developers, designers, and innovators creating cutting-edge solutions and fostering the next generation of tech talent.</p>
+                    <img src="images/Knovon_White.png" alt="Knovon Logo White" class="hero-logo fade-in">
                 </div>
             </section>
 
@@ -1090,21 +1416,33 @@
                 <div class="container">
                     <div class="grid grid-4">
                         <a href="team.html" class="card page-link-card fade-in">
+                            <div class="card-image">
+                                <img src="images/KnovonStock00001.png" alt="Our Team" loading="lazy">
+                            </div>
                             <i class="fas fa-users"></i>
                             <h3>Our Team</h3>
                             <p>Meet the passionate individuals driving innovation in technology education.</p>
                         </a>
                         <a href="programs.html" class="card page-link-card fade-in">
+                            <div class="card-image">
+                                <img src="images/KnovonStock00002.png" alt="Our Programs" loading="lazy">
+                            </div>
                             <i class="fas fa-code"></i>
                             <h3>Programs</h3>
                             <p>Discover our comprehensive development and learning programs.</p>
                         </a>
                         <a href="careers.html" class="card page-link-card fade-in">
+                            <div class="card-image">
+                                <img src="images/KnovonStock00003.png" alt="Careers at Knovon" loading="lazy">
+                            </div>
                             <i class="fas fa-briefcase"></i>
                             <h3>Careers</h3>
                             <p>Join our mission to transform technology education.</p>
                         </a>
                         <a href="contact.html" class="card page-link-card fade-in">
+                            <div class="card-image">
+                                <img src="images/KnovonStock00004.png" alt="Contact Us" loading="lazy">
+                            </div>
                             <i class="fas fa-envelope"></i>
                             <h3>Contact</h3>
                             <p>Get in touch with our team to learn more.</p>
@@ -1117,12 +1455,93 @@
                 <div class="container">
                     <div class="grid grid-2">
                         <div class="about-content-text fade-in">
-                            <h2>Empowering the Next Generation of Innovators</h2>
-                            <p>Founded in the heart of Kauai, Knovon is more than just a technology education company. We're a community of passionate educators, developers, and innovators committed to making technology education accessible and engaging for youth across the globe.</p>
-                            <p>Through our innovative programs and hands-on approach, we're bridging the gap between traditional education and the rapidly evolving tech industry. Our students don't just learn to code; they develop the critical thinking, creativity, and collaborative skills needed to thrive in the digital age.</p>
+                            <div class="content-image-float">
+                                <img src="images/KnovonStock00005.png" alt="Innovation in Technology" class="float-image">
+                            </div>
+                            <h2>Driving Innovation Through Technology</h2>
+                            <p>Founded in the heart of Kauai, Knovon is a dynamic technology company bringing together passionate developers, inspired gamers, innovative engineers, creative designers, and strategic marketers. We're more than just a tech company - we're a community of creators and innovators pushing the boundaries of what's possible.</p>
+                            <p>Through our diverse portfolio of projects and hands-on development opportunities, we're creating cutting-edge solutions while fostering the growth of emerging tech talent. Our team combines expertise in software development, game design, engineering, and digital innovation to deliver exceptional results.</p>
+                            
+                            <div class="about-highlights fade-in">
+                                <h3>Our Mission</h3>
+                                <p>To create innovative technology solutions while providing real-world development opportunities for emerging talent through hands-on experience and mentorship.</p>
+                                
+                                <div class="mission-image">
+                                    <img src="images/KnovonStock00006.png" alt="Our Team in Action" loading="lazy">
+                                </div>
+                                
+                                <h3>What We Do</h3>
+                                <ul class="highlight-list">
+                                    <li><i class="fas fa-code"></i> Develop innovative software solutions</li>
+                                    <li><i class="fas fa-gamepad"></i> Create engaging gaming experiences</li>
+                                    <li><i class="fas fa-palette"></i> Design compelling digital experiences</li>
+                                    <li><i class="fas fa-laptop-code"></i> Build cutting-edge web applications</li>
+                                    <li><i class="fas fa-users"></i> Mentor emerging tech talent</li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="about-image-container fade-in">
-                            <img src="images/about-main.jpg" alt="Students collaborating on a project" loading="lazy">
+                        <div class="about-showcase fade-in">
+                            <div class="showcase-background">
+                                <img src="images/KnovonStock00007.png" alt="Technology Innovation" class="showcase-bg-image">
+                            </div>
+                            <div class="logo-showcase">
+                                <div class="showcase-item main-brand">
+                                    <img src="images/Knovon_black.png" alt="Knovon" class="showcase-logo main-logo">
+                                    <p class="main-brand-caption">Our main brand works alongside these innovative brands</p>
+                                </div>
+                                <div class="showcase-grid">
+                                    <div class="showcase-item">
+                                        <img src="images/knovon-dev.png" alt="Knovon Developers" class="showcase-logo">
+                                    </div>
+                                    <div class="showcase-item">
+                                        <img src="images/BrownBrostech.png" alt="Brown Bros Tech" class="showcase-logo">
+                                    </div>
+                                    <div class="showcase-item">
+                                        <img src="images/BrownBros.png" alt="Brown Bros Dev" class="showcase-logo">
+                                    </div>
+                                    <div class="showcase-item">
+                                        <img src="images/SpaceFlightTracker.png" alt="SpaceFlight Tracker" class="showcase-logo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Brands Carousel Section -->
+            <section class="section section-light brands-section">
+                <div class="container">
+                    <h2 class="text-center fade-in">Our Brands</h2>
+                    <div class="brands-carousel">
+                        <div class="carousel-track">
+                            <div class="brand-logo-wrapper">
+                                <img src="images/Knovon_black.png" alt="Knovon" class="brand-logo">
+                            </div>
+                            <div class="brand-logo-wrapper">
+                                <img src="images/knovon-dev.png" alt="Knovon Developers" class="brand-logo">
+                            </div>
+                            <div class="brand-logo-wrapper">
+                                <img src="images/BrownBrostech.png" alt="Brown Bros Tech" class="brand-logo">
+                            </div>
+                            <div class="brand-logo-wrapper">
+                                <img src="images/BrownBros.png" alt="Brown Bros Dev" class="brand-logo">
+                            </div>
+                            <div class="brand-logo-wrapper">
+                                <img src="images/SpaceFlightTracker.png" alt="SpaceFlight Tracker" class="brand-logo">
+                            </div>
+                            <div class="brand-logo-wrapper">
+                                <img src="images/knovon-net.png" alt="Knovon.net" class="brand-logo">
+                            </div>
+                            <div class="brand-logo-wrapper">
+                                <img src="images/Knovon-ID.png" alt="KnovonID" class="brand-logo">
+                            </div>
+                            <div class="brand-logo-wrapper">
+                                <img src="images/Knovondomains.png" alt="Knovon Domains" class="brand-logo">
+                            </div>
+                            <div class="brand-logo-wrapper">
+                                <img src="images/bible.png" alt="Bible App" class="brand-logo">
+                            </div>
                         </div>
                     </div>
                 </div>

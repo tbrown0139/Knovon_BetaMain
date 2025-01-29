@@ -230,23 +230,23 @@ function initializeSplashScreen() {
     
     if (!splashScreen || !contentWrapper || !loadingProgress) return;
 
-    // Simulate loading progress
+    // Simulate loading progress with faster timing
     let progress = 0;
     const interval = setInterval(() => {
-        progress += Math.random() * 30;
+        progress += Math.random() * 45; // Increased progress increment
         if (progress > 100) {
             progress = 100;
             clearInterval(interval);
             
-            // Hide splash screen and show content
+            // Hide splash screen and show content faster
             setTimeout(() => {
                 splashScreen.style.opacity = '0';
                 contentWrapper.classList.add('visible');
                 setTimeout(() => {
                     splashScreen.style.display = 'none';
-                }, 300);
-            }, 500);
+                }, 200); // Reduced from 300ms
+            }, 200); // Reduced from 500ms
         }
         loadingProgress.style.width = `${progress}%`;
-    }, 500);
+    }, 100); // Reduced from 500ms
 } 
