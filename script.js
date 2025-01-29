@@ -1,30 +1,227 @@
-// Initialize Firebase App
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js';
-import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js';
+// ASCII art for Knovon logo
+const KNOVON_ASCII = `
+    ██╗  ██╗███╗   ██╗ ██████╗ ██╗   ██╗ ██████╗ ███╗   ██╗
+    ██║ ██╔╝████╗  ██║██╔═══██╗██║   ██║██╔═══██╗████╗  ██║
+    █████╔╝ ██╔██╗ ██║██║   ██║██║   ██║██║   ██║██╔██╗ ██║
+    ██╔═██╗ ██║╚██╗██║██║   ██║╚██╗ ██╔╝██║   ██║██║╚██╗██║
+    ██║  ██╗██║ ╚████║╚██████╔╝ ╚████╔╝ ╚██████╔╝██║ ╚████║
+    ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝   ╚═══╝   ╚═════╝ ╚═╝  ╚═══╝
+`;
 
-// Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyAikYjF9ZY1gMpnpmfJStUF9-uqrqSJWV0",
-    authDomain: "alohamaile.firebaseapp.com",
-    databaseURL: "https://alohamaile.firebaseio.com",
-    projectId: "alohamaile",
-    storageBucket: "alohamaile.firebasestorage.app",
-    messagingSenderId: "222665399871",
-    appId: "1:222665399871:web:367c77659213659058628a"
-};
+// Startup messages
+const startupMessages = [
+    'Initializing system...',
+    'Loading core components...',
+    'Checking system integrity...',
+    'Establishing secure connection...',
+    'Loading Knovon framework...',
+    'Starting up...'
+];
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+// Function to create and append a new terminal line
+function createTerminalLine(text = '') {
+    const line = document.createElement('div');
+    line.className = 'terminal-line';
+    line.textContent = text;
+    return line;
+}
+
+// Function to simulate typing
+async function typeText(element, text, speed = 50) {
+    for (let i = 0; i < text.length; i++) {
+        element.textContent += text[i];
+        await new Promise(resolve => setTimeout(resolve, speed));
+    }
+}
+
+// Function to get logo points
+function getLogoPoints() {
+    const points = [];
+    const centerX = 150;
+    const centerY = 150;
+    const size = 60;
+
+    // Create points for the 'K' shape
+    const kPoints = [
+        // Vertical line
+        ...Array.from({ length: 20 }, (_, i) => ({
+            x: centerX - size,
+            y: centerY - size + (i * (size * 2) / 19)
+        })),
+
+        // Diagonal lines
+        ...Array.from({ length: 15 }, (_, i) => ({
+            x: centerX - size + (i * (size * 2) / 14),
+            y: centerY - size + (i * size / 14)
+        })),
+        ...Array.from({ length: 15 }, (_, i) => ({
+            x: centerX - size + (i * (size * 2) / 14),
+            y: centerY + (i * size / 14)
+        }))
+    ];
+
+    // Create points for the 'N' shape
+    const nPoints = [
+        // Left vertical line
+        ...Array.from({ length: 20 }, (_, i) => ({
+            x: centerX + size/2,
+            y: centerY - size + (i * (size * 2) / 19)
+        })),
+
+        // Diagonal line
+        ...Array.from({ length: 20 }, (_, i) => ({
+            x: centerX + size/2 + (i * size/19),
+            y: centerY + size - (i * (size * 2) / 19)
+        })),
+
+        // Right vertical line
+        ...Array.from({ length: 20 }, (_, i) => ({
+            x: centerX + size*1.5,
+            y: centerY - size + (i * (size * 2) / 19)
+        }))
+    ];
+
+    // Add circular points for the 'O' shape
+    for (let i = 0; i < 40; i++) {
+        const angle = (i * Math.PI * 2) / 40;
+        points.push({
+            x: centerX + Math.cos(angle) * (size/2),
+            y: centerY + Math.sin(angle) * (size/2)
+        });
+    }
+
+    // Combine all points
+    return [...points, ...kPoints, ...nPoints];
+}
+
+// Function to create particles
+function createParticles() {
+    const container = document.querySelector('.particle-container');
+    const numParticles = 300; // Increased for more detail
+    const particles = [];
+    const logoPoints = getLogoPoints();
+    
+    // Create particles
+    for (let i = 0; i < numParticles; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Smaller particles for more detail
+        const size = Math.random() * 2 + 1;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        
+        // Random starting position in a circle around the container
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 250 + Math.random() * 100;
+        const startX = Math.cos(angle) * distance + 150;
+        const startY = Math.sin(angle) * distance + 150;
+        
+        // Get random target point from logo points
+        const targetPoint = logoPoints[Math.floor(Math.random() * logoPoints.length)];
+        
+        // Add slight randomness to target position
+        const randomOffset = 2;
+        const targetX = targetPoint.x + (Math.random() - 0.5) * randomOffset;
+        const targetY = targetPoint.y + (Math.random() - 0.5) * randomOffset;
+        
+        particle.style.transform = `translate(${startX}px, ${startY}px)`;
+        particle.style.opacity = '0';
+        
+        container.appendChild(particle);
+        particles.push({
+            element: particle,
+            x: startX,
+            y: startY,
+            targetX,
+            targetY,
+            size
+        });
+    }
+    
+    return particles;
+}
+
+// Function to animate particles
+function animateParticles(particles) {
+    particles.forEach((particle, index) => {
+        setTimeout(() => {
+            particle.element.style.transform = `translate(${particle.targetX}px, ${particle.targetY}px)`;
+            particle.element.style.opacity = '0.6';
+            
+            // Add floating animation after reaching target
+            setTimeout(() => {
+                particle.element.style.transition = 'transform 3s ease-in-out infinite';
+                particle.element.style.transform = `translate(${particle.targetX}px, ${particle.targetY}px) translate(${Math.random() * 10 - 5}px, ${Math.random() * 10 - 5}px)`;
+            }, 1000);
+        }, index * 10); // Faster animation
+    });
+}
+
+// Function to update loading progress
+function updateLoadingProgress(progress) {
+    const progressBar = document.querySelector('.loading-progress');
+    const loadingMessage = document.querySelector('.loading-message');
+    const messages = [
+        'Initializing particles...',
+        'Forming logo...',
+        'Stabilizing pattern...',
+        'Almost ready...',
+        'Welcome to Knovon'
+    ];
+    
+    progressBar.style.width = `${progress}%`;
+    loadingMessage.textContent = messages[Math.floor((progress / 100) * (messages.length - 1))];
+}
+
+// Function to handle splash screen
+function handleSplashScreen() {
+    const splashScreen = document.querySelector('.splash-screen');
+    const contentWrapper = document.querySelector('.content-wrapper');
+    const loadingProgress = document.querySelector('.loading-progress');
+    const loadingText = document.querySelector('.loading-text');
+    
+    // Remove no-js class since JavaScript is enabled
+    document.documentElement.classList.remove('no-js');
+    
+    // Start loading animation
+    let progress = 0;
+    const loadingInterval = setInterval(() => {
+        progress += 2;
+        
+        if (progress <= 100) {
+            loadingProgress.style.width = `${progress}%`;
+            loadingText.textContent = `Loading... ${progress}%`;
+            loadingText.setAttribute('aria-valuenow', progress);
+        }
+        
+        if (progress >= 100) {
+            clearInterval(loadingInterval);
+            
+            // Add completion animation
+            loadingProgress.style.transition = 'all 0.3s ease-out';
+            loadingText.textContent = 'Welcome to Knovon';
+            
+            // Show content and hide splash screen
+            setTimeout(() => {
+                contentWrapper.classList.add('visible');
+                splashScreen.style.opacity = '0';
+                splashScreen.style.transition = 'opacity 0.3s ease-out';
+                
+                setTimeout(() => {
+                    splashScreen.style.display = 'none';
+                    document.body.style.overflow = 'visible';
+                }, 300);
+            }, 200);
+        }
+    }, 20);
+}
 
 // Main functionality
 document.addEventListener('DOMContentLoaded', () => {
-    // Remove loading screen immediately
-    const loading = document.querySelector('.loading');
-    if (loading) {
-        loading.remove();
-    }
-    document.body.style.overflow = 'visible';
+    // Add no-js class by default
+    document.documentElement.classList.add('no-js');
+    handleSplashScreen();
 
     // Mobile menu functionality
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -36,13 +233,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // Open mobile menu
         mobileMenuBtn.addEventListener('click', () => {
             mobileMenu.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
         });
 
         // Close mobile menu
         mobileCloseBtn.addEventListener('click', () => {
             mobileMenu.classList.remove('active');
-            document.body.style.overflow = ''; // Restore scrolling
+            document.body.style.overflow = '';
         });
 
         // Handle dropdown toggles
@@ -139,113 +336,10 @@ document.addEventListener('DOMContentLoaded', () => {
         typeEffect();
     }
 
-    // Animate stats when in view
-    const stats = document.querySelectorAll('.stat-number');
-    const animateStats = () => {
-        stats.forEach(stat => {
-            const target = parseInt(stat.getAttribute('data-value') || '0');
-            const current = parseInt(stat.textContent || '0');
-            
-            if (current < target) {
-                const increment = target / 50; // Adjust for animation speed
-                stat.textContent = Math.ceil(Math.min(current + increment, target));
-                setTimeout(animateStats, 20);
-            }
-        });
-    };
-
-    // Start stats animation when in view
-    const statsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateStats();
-                statsObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    const heroStats = document.querySelector('.hero-stats');
-    if (heroStats) {
-        statsObserver.observe(heroStats);
-    }
-
-    // Innovation Page Interactions
-    // Parallax effect for images
-    const parallaxImage = document.querySelector('.parallax-image');
-    if (parallaxImage) {
-        document.addEventListener('mousemove', (e) => {
-            const { clientX, clientY } = e;
-            const { innerWidth, innerHeight } = window;
-            
-            const xAxis = (clientX - innerWidth / 2) / 25;
-            const yAxis = (clientY - innerHeight / 2) / 25;
-            
-            parallaxImage.style.transform = `perspective(1000px) rotateY(${xAxis}deg) rotateX(${-yAxis}deg)`;
-        });
-    }
-
-    // Gradient sphere animation
-    const sphere = document.querySelector('.gradient-sphere');
-    if (sphere) {
-        document.addEventListener('mousemove', (e) => {
-            const { clientX, clientY } = e;
-            const { innerWidth, innerHeight } = window;
-            
-            const moveX = (clientX - innerWidth / 2) / 50;
-            const moveY = (clientY - innerHeight / 2) / 50;
-            
-            sphere.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${moveX * 2}deg)`;
-        });
-    }
-
-    // Create fade-in animation style
-    const fadeInStyle = document.createElement('style');
-    fadeInStyle.textContent = `
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-    `;
-    document.head.appendChild(fadeInStyle);
-
-    // Update login button based on auth state
-    function updateLoginButton() {
-        const loginBtns = document.querySelectorAll('.login-btn');
-        const userName = localStorage.getItem('userName');
-
-        loginBtns.forEach(btn => {
-            if (userName) {
-                btn.innerHTML = `Aloha ${userName} <i class="fas fa-user"></i>`;
-                btn.onclick = handleSignOut;
-            } else {
-                btn.innerHTML = `Login <i class="fas fa-user"></i>`;
-                btn.onclick = () => window.location.href = 'login.html';
-            }
-        });
-    }
-
-    // Handle sign out
-    async function handleSignOut() {
-        try {
-            await signOut(auth);
-            localStorage.removeItem('userName');
-            updateLoginButton();
-            window.location.href = 'index.html';
-        } catch (error) {
-            console.error('Error signing out:', error);
-        }
-    }
-
-    // Listen for auth state changes
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            localStorage.setItem('userName', user.displayName || user.email.split('@')[0]);
-        } else {
-            localStorage.removeItem('userName');
-        }
-        updateLoginButton();
+    // Simple login button functionality
+    const loginBtns = document.querySelectorAll('.login-btn');
+    loginBtns.forEach(btn => {
+        btn.innerHTML = `Login <i class="fas fa-user"></i>`;
+        btn.onclick = () => window.location.href = 'login.html';
     });
-
-    // Initialize login button state
-    updateLoginButton();
 }); 

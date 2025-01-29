@@ -2,7 +2,7 @@ console.log('Components.js loaded');
 console.log('Base URL:', window.location.pathname);
 
 // Function to setup mobile menu
-function setupMobileMenu(container) {
+export function setupMobileMenu(container) {
     const mobileMenuBtn = container.querySelector('.mobile-menu-btn');
     const mobileMenu = container.querySelector('.mobile-menu');
     const mobileCloseBtn = container.querySelector('.mobile-close-btn');
@@ -42,7 +42,7 @@ function setupMobileMenu(container) {
 }
 
 // Function to load components
-async function loadComponent(containerSelector, filePath) {
+export async function loadComponent(containerSelector, filePath) {
     const container = document.querySelector(containerSelector);
     if (!container) {
         console.error(`Container ${containerSelector} not found`);
@@ -87,9 +87,14 @@ async function loadComponent(containerSelector, filePath) {
     }
 }
 
+// Initialize components
+export async function initComponents() {
+    await loadComponent('#header-container', 'components/header.html');
+    await loadComponent('#footer-container', 'components/footer.html');
+}
+
 // Load components when DOM is ready
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('Loading components...');
-    await loadComponent('#header-container', 'components/header.html');
-    await loadComponent('#footer-container', 'components/footer.html');
+    await initComponents();
 }); 

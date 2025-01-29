@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,53 +25,186 @@
             </div>
             <div class="nav-container">
                 <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-trigger">About <i class="fas fa-chevron-down"></i></a>
+                        <div class="mega-dropdown">
+                            <div class="dropdown-content">
+                                <div class="dropdown-section featured">
+                                    <h3>About Knovon</h3>
+                                    <p>Empowering the next generation through innovative technology and hands-on learning experiences.</p>
+                                    <a href="about.html" class="learn-more-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+                                </div>
+                                <div class="dropdown-section links">
+                                    <div class="link-column">
+                                        <h4>Company</h4>
+                                        <ul>
+                                            <li><a href="about.html#story">Our Story</a></li>
+                                            <li><a href="about.html#mission">Mission & Values</a></li>
+                                            <li><a href="about.html#team">Leadership Team</a></li>
+                                            <li><a href="about.html#impact">Social Impact</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="link-column">
+                                        <h4>What We Do</h4>
+                                        <ul>
+                                            <li><a href="software.html">Software Development</a></li>
+                                            <li><a href="games.html">Game Development</a></li>
+                                            <li><a href="training.html">Workforce Training</a></li>
+                                            <li><a href="innovation.html">Innovation Lab</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="link-column">
+                                        <h4>Latest Updates</h4>
+                                        <div class="news-item">
+                                            <span class="news-date">March 2024</span>
+                                            <a href="#" class="news-link">Knovon Launches New Innovation Lab</a>
+                                        </div>
+                                        <div class="news-item">
+                                            <span class="news-date">February 2024</span>
+                                            <a href="#" class="news-link">Partnership with Local Schools Announced</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                     <li><a href="projects.html">Projects</a></li>
                     <li><a href="careers.html" class="active">Careers</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-trigger">Contact <i class="fas fa-chevron-down"></i></a>
+                        <div class="mega-dropdown">
+                            <div class="dropdown-content">
+                                <div class="dropdown-section featured">
+                                    <h3>Get in Touch</h3>
+                                    <p>We'd love to hear from you! Reach out through any of these channels.</p>
+                                    <div class="contact-options">
+                                        <a href="mailto:hello@knovon.org" class="contact-option">
+                                            <i class="fas fa-envelope"></i>
+                                            <div class="contact-info">
+                                                <span class="contact-label">Email Us</span>
+                                                <span class="contact-value">hello@knovon.org</span>
+                                            </div>
+                                        </a>
+                                        <a href="tel:+18019870671" class="contact-option">
+                                            <i class="fas fa-phone"></i>
+                                            <div class="contact-info">
+                                                <span class="contact-label">Call Us</span>
+                                                <span class="contact-value">(801) 987-0671</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="dropdown-section links">
+                                    <div class="link-column">
+                                        <h4>Quick Links</h4>
+                                        <ul>
+                                            <li><a href="contact.html#general"><i class="fas fa-envelope"></i> General Inquiries</a></li>
+                                            <li><a href="contact.html#support"><i class="fas fa-headset"></i> Support</a></li>
+                                            <li><a href="contact.html#careers"><i class="fas fa-briefcase"></i> Careers</a></li>
+                                            <li><a href="contact.html#press"><i class="fas fa-newspaper"></i> Press & Media</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
-                <button class="login-btn">Login</button>
-                <button class="mobile-menu-btn">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+                <button class="login-btn">Login <i class="fas fa-user"></i></button>
             </div>
+            <button class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </nav>
     </header>
 
     <main>
         <section class="careers-hero">
+            <div class="tech-particles"></div>
             <div class="careers-hero-content">
-                <h1>Join Our Team</h1>
-                <p>Be part of something extraordinary. Help shape the future of technology.</p>
-                <button class="view-positions-btn">View Open Positions</button>
+                <h1>Join Our <span class="gradient-text">Team</span></h1>
+                <p>Be part of a team that's pioneering the future through innovative technology</p>
+                <div class="hero-features">
+                    <div class="hero-feature">
+                        <i class="fas fa-microchip"></i>
+                        <span>Smart Technology</span>
+                    </div>
+                    <div class="hero-feature">
+                        <i class="fas fa-code"></i>
+                        <span>Innovation</span>
+                    </div>
+                    <div class="hero-feature">
+                        <i class="fas fa-users"></i>
+                        <span>Growth</span>
+                    </div>
+                </div>
+                <button class="view-positions-btn">
+                    <span>View Open Positions</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
             </div>
         </section>
 
-        <section class="why-knovon section-container">
-            <h2>Why Choose Knovon?</h2>
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <i class="fas fa-rocket"></i>
-                    <h3>Innovation First</h3>
-                    <p>Work on cutting-edge projects using the latest technologies</p>
+        <section class="why-knovon">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Why Choose <span class="gradient-text">Knovon</span>?</h2>
+                    <p class="section-subtitle">Join us in building the next generation of technology and talent</p>
                 </div>
-                <div class="benefit-card">
-                    <i class="fas fa-users"></i>
-                    <h3>Collaborative Culture</h3>
-                    <p>Join a team that values creativity, diversity, and open communication</p>
-                </div>
-                <div class="benefit-card">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Growth Opportunities</h3>
-                    <p>Continuous learning and career development programs</p>
-                </div>
-                <div class="benefit-card">
-                    <i class="fas fa-heart"></i>
-                    <h3>Work-Life Balance</h3>
-                    <p>Flexible schedules and remote work options</p>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-card tech-hover-effect">
+                        <div class="card-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Innovation First</h3>
+                        <p>Pioneer breakthrough technologies and smart solutions that shape the future.</p>
+                        <ul class="benefit-features">
+                            <li><i class="fas fa-check-circle"></i>Work with cutting-edge technologies</li>
+                            <li><i class="fas fa-check-circle"></i>Contribute to innovative projects</li>
+                            <li><i class="fas fa-check-circle"></i>Shape the future of tech</li>
+                        </ul>
+                    </div>
+
+                    <div class="benefit-card tech-hover-effect">
+                        <div class="card-icon">
+                            <i class="fas fa-users-gear"></i>
+                        </div>
+                        <h3>Youth Development</h3>
+                        <p>Empower the next generation through mentorship and hands-on experience.</p>
+                        <ul class="benefit-features">
+                            <li><i class="fas fa-check-circle"></i>Mentor young talent</li>
+                            <li><i class="fas fa-check-circle"></i>Lead training programs</li>
+                            <li><i class="fas fa-check-circle"></i>Shape future tech leaders</li>
+                        </ul>
+                    </div>
+
+                    <div class="benefit-card tech-hover-effect">
+                        <div class="card-icon">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                        <h3>Smart Technology</h3>
+                        <p>Build intelligent solutions that make a real difference in people's lives.</p>
+                        <ul class="benefit-features">
+                            <li><i class="fas fa-check-circle"></i>Develop smart applications</li>
+                            <li><i class="fas fa-check-circle"></i>Create intuitive experiences</li>
+                            <li><i class="fas fa-check-circle"></i>Drive technological advancement</li>
+                        </ul>
+                    </div>
+
+                    <div class="benefit-card tech-hover-effect">
+                        <div class="card-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Growth & Impact</h3>
+                        <p>Be part of a team that values personal growth and meaningful impact.</p>
+                        <ul class="benefit-features">
+                            <li><i class="fas fa-check-circle"></i>Continuous learning opportunities</li>
+                            <li><i class="fas fa-check-circle"></i>Make a real difference</li>
+                            <li><i class="fas fa-check-circle"></i>Build your career</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
@@ -79,30 +212,120 @@
         <section class="culture-section">
             <div class="section-container">
                 <div class="culture-content">
-                    <h2>Our Culture</h2>
-                    <p>At Knovon, we believe in fostering an environment where innovation thrives and every voice matters. Our culture is built on collaboration, continuous learning, and making a positive impact.</p>
-                    <div class="culture-gallery">
-                        <img src="images/culture-1.jpg" alt="Team collaboration at Knovon">
-                        <img src="images/culture-2.jpg" alt="Office environment">
-                        <img src="images/culture-3.jpg" alt="Team building activity">
+                    <div class="section-header">
+                        <h2>Our <span class="ai-gradient-text">AI-Driven</span> Culture</h2>
+                        <p class="section-subtitle">Where human creativity meets artificial intelligence to shape the future of technology.</p>
+                    </div>
+                    
+                    <div class="culture-grid">
+                        <div class="culture-card ai-hover-effect">
+                            <div class="card-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h3>AI Innovation</h3>
+                            <p>Pioneer the future of AI technology with cutting-edge research and development.</p>
+                            <div class="ai-particles"></div>
+                        </div>
+
+                        <div class="culture-card ai-hover-effect">
+                            <div class="card-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h3>Machine Learning</h3>
+                            <p>Develop advanced ML models that push the boundaries of what's possible.</p>
+                            <div class="ai-particles"></div>
+                        </div>
+
+                        <div class="culture-card ai-hover-effect">
+                            <div class="card-icon">
+                                <i class="fas fa-network-wired"></i>
+                            </div>
+                            <h3>Neural Networks</h3>
+                            <p>Create sophisticated neural networks that solve complex problems.</p>
+                            <div class="ai-particles"></div>
+                        </div>
+
+                        <div class="culture-card ai-hover-effect">
+                            <div class="card-icon">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                            <h3>Deep Learning</h3>
+                            <p>Explore the depths of AI with advanced deep learning technologies.</p>
+                            <div class="ai-particles"></div>
+                        </div>
+                    </div>
+
+                    <div class="ai-feature-showcase">
+                        <div class="feature-text">
+                            <h3>Experience the Power of AI</h3>
+                            <p>At Knovon, we're not just using AI – we're defining its future. Join us in creating intelligent solutions that make a difference.</p>
+                            <ul class="ai-features-list">
+                                <li><i class="fas fa-check-circle"></i> State-of-the-art AI research facilities</li>
+                                <li><i class="fas fa-check-circle"></i> Collaboration with leading AI researchers</li>
+                                <li><i class="fas fa-check-circle"></i> Access to powerful computing resources</li>
+                                <li><i class="fas fa-check-circle"></i> Regular AI workshops and training</li>
+                            </ul>
+                        </div>
+                        <div class="feature-visual">
+                            <div class="ai-animation-container">
+                                <div class="neural-network">
+                                    <!-- Neural network animation elements will be added by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="open-positions section-container">
-            <h2>Open Positions</h2>
-            <div class="positions-filter">
-                <button class="filter-btn active" data-filter="all">All Departments</button>
-                <button class="filter-btn" data-filter="Software Development">Software Development</button>
-                <button class="filter-btn" data-filter="Game Development">Game Development</button>
-                <button class="filter-btn" data-filter="Creative Design">Creative Design & Marketing</button>
-                <button class="filter-btn" data-filter="Volunteer Management">Volunteer Management</button>
-                <button class="filter-btn" data-filter="Operations">Operations & Support</button>
-                <button class="filter-btn" data-filter="Innovation">Innovation & R&D</button>
-            </div>
-            <div class="positions-grid">
-                <!-- Job positions will be dynamically loaded here -->
+        <section class="open-positions">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Open <span class="gradient-text">Positions</span></h2>
+                    <p class="section-subtitle">Join our team and help shape the future of technology</p>
+                </div>
+
+                <div class="positions-filter">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-th-large"></i>
+                        <span>All Departments</span>
+                    </button>
+                    <button class="filter-btn" data-filter="Software Development">
+                        <i class="fas fa-code"></i>
+                        <span>Software Development</span>
+                    </button>
+                    <button class="filter-btn" data-filter="Game Development">
+                        <i class="fas fa-gamepad"></i>
+                        <span>Game Development</span>
+                    </button>
+                    <button class="filter-btn" data-filter="Creative Design">
+                        <i class="fas fa-palette"></i>
+                        <span>Creative Design</span>
+                    </button>
+                    <button class="filter-btn" data-filter="Volunteer Management">
+                        <i class="fas fa-hands-helping"></i>
+                        <span>Volunteer Management</span>
+                    </button>
+                    <button class="filter-btn" data-filter="Operations">
+                        <i class="fas fa-cogs"></i>
+                        <span>Operations</span>
+                    </button>
+                    <button class="filter-btn" data-filter="Innovation">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Innovation & R&D</span>
+                    </button>
+                </div>
+
+                <div class="positions-grid">
+                    <!-- Job positions will be dynamically loaded here -->
+                </div>
+
+                <div class="load-more-container">
+                    <button class="load-more-btn">
+                        <span>Load More Positions</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
             </div>
         </section>
 
