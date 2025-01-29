@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn about Knovon's mission to empower youth through technology education and innovative software development.">
-    <meta name="keywords" content="knovon, youth programming, game development, roblox development, software education, hawaii tech company">
+    <meta name="description" content="Learn about Knovon's mission to empower youth through technology education.">
+    <meta name="keywords" content="knovon, youth programming, tech education, hawaii tech company">
     <meta name="author" content="Knovon">
     <title>About Knovon | Empowering Future Developers</title>
-    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/nav.css">
+    <link rel="stylesheet" href="styles/about.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .about-hero {
@@ -1070,52 +1074,56 @@
         <header></header>
 
         <main>
-            <section class="about-hero">
+            <section class="hero section-gradient">
                 <div class="floating-shapes">
                     <div class="shape"></div>
                     <div class="shape"></div>
                     <div class="shape"></div>
                 </div>
-                <div class="about-hero-content">
+                <div class="hero-content">
                     <h1>Shaping Tomorrow's Tech Leaders</h1>
-                    <p class="about-hero-description">From Kauai to the world, we're empowering youth through innovative technology education and hands-on development experience.</p>
+                    <p class="hero-description">From Kauai to the world, we're empowering youth through innovative technology education and hands-on development experience.</p>
                 </div>
             </section>
 
-            <section class="page-links-section">
-                <div class="page-links-grid">
-                    <a href="/team" class="page-link-card">
-                        <i class="fas fa-users"></i>
-                        <h3>Our Team</h3>
-                        <p>Meet the passionate individuals driving innovation in technology education.</p>
-                    </a>
-                    <a href="/programs" class="page-link-card">
-                        <i class="fas fa-code"></i>
-                        <h3>Programs</h3>
-                        <p>Discover our comprehensive development and learning programs.</p>
-                    </a>
-                    <a href="/careers" class="page-link-card">
-                        <i class="fas fa-briefcase"></i>
-                        <h3>Careers</h3>
-                        <p>Join our mission to transform technology education.</p>
-                    </a>
-                    <a href="/contact" class="page-link-card">
-                        <i class="fas fa-envelope"></i>
-                        <h3>Contact</h3>
-                        <p>Get in touch with our team to learn more.</p>
-                    </a>
-                </div>
-            </section>
-
-            <section class="about-content-section">
-                <div class="about-content-grid">
-                    <div class="about-content-text">
-                        <h2>Empowering the Next Generation of Innovators</h2>
-                        <p>Founded in the heart of Kauai, Knovon is more than just a technology education company. We're a community of passionate educators, developers, and innovators committed to making technology education accessible and engaging for youth across the globe.</p>
-                        <p>Through our innovative programs and hands-on approach, we're bridging the gap between traditional education and the rapidly evolving tech industry. Our students don't just learn to code; they develop the critical thinking, creativity, and collaborative skills needed to thrive in the digital age.</p>
+            <section class="section section-light">
+                <div class="container">
+                    <div class="grid grid-4">
+                        <a href="team.html" class="card page-link-card fade-in">
+                            <i class="fas fa-users"></i>
+                            <h3>Our Team</h3>
+                            <p>Meet the passionate individuals driving innovation in technology education.</p>
+                        </a>
+                        <a href="programs.html" class="card page-link-card fade-in">
+                            <i class="fas fa-code"></i>
+                            <h3>Programs</h3>
+                            <p>Discover our comprehensive development and learning programs.</p>
+                        </a>
+                        <a href="careers.html" class="card page-link-card fade-in">
+                            <i class="fas fa-briefcase"></i>
+                            <h3>Careers</h3>
+                            <p>Join our mission to transform technology education.</p>
+                        </a>
+                        <a href="contact.html" class="card page-link-card fade-in">
+                            <i class="fas fa-envelope"></i>
+                            <h3>Contact</h3>
+                            <p>Get in touch with our team to learn more.</p>
+                        </a>
                     </div>
-                    <div class="about-image-container">
-                        <img src="images/about-main.jpg" alt="Students collaborating on a project">
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="container">
+                    <div class="grid grid-2">
+                        <div class="about-content-text fade-in">
+                            <h2>Empowering the Next Generation of Innovators</h2>
+                            <p>Founded in the heart of Kauai, Knovon is more than just a technology education company. We're a community of passionate educators, developers, and innovators committed to making technology education accessible and engaging for youth across the globe.</p>
+                            <p>Through our innovative programs and hands-on approach, we're bridging the gap between traditional education and the rapidly evolving tech industry. Our students don't just learn to code; they develop the critical thinking, creativity, and collaborative skills needed to thrive in the digital age.</p>
+                        </div>
+                        <div class="about-image-container fade-in">
+                            <img src="images/about-main.jpg" alt="Students collaborating on a project" loading="lazy">
+                        </div>
                     </div>
                 </div>
             </section>
@@ -1126,8 +1134,8 @@
     </div>
 
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
-    <script type="module" src="js/components.js"></script>
-    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js" defer></script>
+    <script src="./js/shared.js"></script>
+    <script src="./js/about.js"></script>
 </body>
 </html> 

@@ -1,52 +1,173 @@
+// Shared functionality for loading components
+document.addEventListener('DOMContentLoaded', () => {
+    loadSharedComponents();
+    initializeSplashScreen();
+});
+
 // Load shared components (navigation and footer)
 async function loadSharedComponents() {
     try {
-        await Promise.all([
-            loadNavigation(),
-            loadFooter()
-        ]);
-    } catch (error) {
-        console.error('Error loading shared components:', error);
-    }
-}
+        // Load navigation
+        const headerElement = document.querySelector('header');
+        if (headerElement) {
+            // Try different path variations
+            let navHtml;
+            try {
+                const navResponse = await fetch('/components/nav.html');
+                if (navResponse.ok) {
+                    navHtml = await navResponse.text();
+                }
+            } catch {
+                try {
+                    const navResponse = await fetch('./components/nav.html');
+                    if (navResponse.ok) {
+                        navHtml = await navResponse.text();
+                    }
+                } catch {
+                    try {
+                        const navResponse = await fetch('../components/nav.html');
+                        if (navResponse.ok) {
+                            navHtml = await navResponse.text();
+                        }
+                    } catch (error) {
+                        console.error('All navigation fetch attempts failed:', error);
+                        fallbackToStaticNav();
+                        return;
+                    }
+                }
+            }
 
-// Load navigation
-async function loadNavigation() {
-    try {
-        const response = await fetch('./components/nav.html');
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const html = await response.text();
-        
-        const header = document.querySelector('header');
-        if (header) {
-            header.innerHTML = html;
-            initializeNavigation();
-        } else {
-            throw new Error('Header element not found');
+            if (navHtml) {
+                headerElement.innerHTML = navHtml;
+                initializeNavigation();
+            } else {
+                fallbackToStaticNav();
+            }
+        }
+
+        // Load footer with similar path handling
+        const footerElement = document.querySelector('footer');
+        if (footerElement) {
+            let footerHtml;
+            try {
+                const footerResponse = await fetch('/components/footer.html');
+                if (footerResponse.ok) {
+                    footerHtml = await footerResponse.text();
+                }
+            } catch {
+                try {
+                    const footerResponse = await fetch('./components/footer.html');
+                    if (footerResponse.ok) {
+                        footerHtml = await footerResponse.text();
+                    }
+                } catch {
+                    try {
+                        const footerResponse = await fetch('../components/footer.html');
+                        if (footerResponse.ok) {
+                            footerHtml = await footerResponse.text();
+                        }
+                    } catch (error) {
+                        console.error('All footer fetch attempts failed:', error);
+                        fallbackToStaticFooter();
+                        return;
+                    }
+                }
+            }
+
+            if (footerHtml) {
+                footerElement.innerHTML = footerHtml;
+            } else {
+                fallbackToStaticFooter();
+            }
         }
     } catch (error) {
-        console.error('Error loading navigation:', error);
+        console.error('Error loading components:', error);
         fallbackToStaticNav();
-    }
-}
-
-// Load footer
-async function loadFooter() {
-    try {
-        const response = await fetch('./components/footer.html');
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const html = await response.text();
-        
-        const footer = document.querySelector('footer');
-        if (footer) {
-            footer.innerHTML = html;
-        } else {
-            throw new Error('Footer element not found');
-        }
-    } catch (error) {
-        console.error('Error loading footer:', error);
         fallbackToStaticFooter();
     }
+}
+
+// Initialize navigation functionality
+function initializeNavigation() {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileCloseBtn = document.querySelector('.mobile-close-btn');
+    const mobileDropdowns = document.querySelectorAll('.mobile-dropdown-trigger');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    // Set active link based on current page
+    setActiveLink(navLinks);
+
+    // Mobile menu toggle
+    if (mobileMenuBtn && mobileMenu && mobileCloseBtn) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        mobileCloseBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
+
+    // Mobile dropdowns
+    mobileDropdowns.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const dropdown = trigger.closest('.mobile-dropdown');
+            dropdown.classList.toggle('active');
+        });
+    });
+
+    // Close mobile menu on outside click
+    document.addEventListener('click', (e) => {
+        if (mobileMenu && mobileMenu.classList.contains('active')) {
+            if (!e.target.closest('.mobile-menu') && !e.target.closest('.mobile-menu-btn')) {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+    });
+
+    // Handle dropdown hover on desktop
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach(dropdown => {
+        let timeoutId;
+
+        dropdown.addEventListener('mouseenter', () => {
+            clearTimeout(timeoutId);
+            dropdowns.forEach(d => {
+                if (d !== dropdown) {
+                    const megaDropdown = d.querySelector('.mega-dropdown');
+                    if (megaDropdown) {
+                        megaDropdown.style.opacity = '0';
+                        megaDropdown.style.visibility = 'hidden';
+                    }
+                }
+            });
+        });
+
+        dropdown.addEventListener('mouseleave', () => {
+            timeoutId = setTimeout(() => {
+                const megaDropdown = dropdown.querySelector('.mega-dropdown');
+                if (megaDropdown) {
+                    megaDropdown.style.opacity = '0';
+                    megaDropdown.style.visibility = 'hidden';
+                }
+            }, 200);
+        });
+    });
+}
+
+function setActiveLink(links) {
+    const currentPath = window.location.pathname;
+    
+    links.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentPath || (currentPath.includes(href) && href !== '/')) {
+            link.classList.add('active');
+        }
+    });
 }
 
 // Fallback to static navigation if loading fails
@@ -66,63 +187,7 @@ function fallbackToStaticFooter() {
     }
 }
 
-// Initialize navigation functionality
-function initializeNavigation() {
-    // Mobile menu toggle
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navContainer = document.querySelector('.nav-container');
-    
-    mobileMenuBtn?.addEventListener('click', () => {
-        mobileMenuBtn.classList.toggle('active');
-        navContainer.classList.toggle('active');
-    });
-
-    // Dropdown functionality
-    const dropdowns = document.querySelectorAll('.dropdown');
-    
-    dropdowns.forEach(dropdown => {
-        const trigger = dropdown.querySelector('.dropdown-trigger');
-        
-        trigger?.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // Close other dropdowns
-            dropdowns.forEach(other => {
-                if (other !== dropdown) {
-                    other.classList.remove('active');
-                }
-            });
-            
-            dropdown.classList.toggle('active');
-        });
-    });
-
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.dropdown')) {
-            dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
-        }
-    });
-
-    // Set active nav link based on current page
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    const navLinks = document.querySelectorAll('.nav-links a');
-    
-    navLinks.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href === currentPage || 
-            (currentPage.includes('#') && href === currentPage.split('#')[0])) {
-            link.classList.add('active');
-            // If link is in dropdown, add active class to parent
-            const dropdownParent = link.closest('.dropdown');
-            if (dropdownParent) {
-                dropdownParent.querySelector('.dropdown-trigger').classList.add('active');
-            }
-        }
-    });
-}
-
-// Get navigation template (your existing template)
+// Get navigation template
 function getNavigationTemplate() {
     return `<nav class="main-nav">
         <div class="logo">
@@ -158,5 +223,30 @@ function getFooterTemplate() {
     </footer>`;
 }
 
-// Load components when DOM is ready
-document.addEventListener('DOMContentLoaded', loadSharedComponents); 
+function initializeSplashScreen() {
+    const splashScreen = document.querySelector('.splash-screen');
+    const contentWrapper = document.querySelector('.content-wrapper');
+    const loadingProgress = document.querySelector('.loading-progress');
+    
+    if (!splashScreen || !contentWrapper || !loadingProgress) return;
+
+    // Simulate loading progress
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += Math.random() * 30;
+        if (progress > 100) {
+            progress = 100;
+            clearInterval(interval);
+            
+            // Hide splash screen and show content
+            setTimeout(() => {
+                splashScreen.style.opacity = '0';
+                contentWrapper.classList.add('visible');
+                setTimeout(() => {
+                    splashScreen.style.display = 'none';
+                }, 300);
+            }, 500);
+        }
+        loadingProgress.style.width = `${progress}%`;
+    }, 500);
+} 
