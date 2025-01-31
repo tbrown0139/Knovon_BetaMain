@@ -28,22 +28,29 @@ function initializeParticles() {
 
 function initializeScrollAnimations() {
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.15,
+        rootMargin: '0px 0px -100px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                
+                // Add stagger effect for grid items
+                if (entry.target.parentElement.classList.contains('vision-grid') ||
+                    entry.target.parentElement.classList.contains('join-options')) {
+                    const index = Array.from(entry.target.parentElement.children).indexOf(entry.target);
+                    entry.target.style.transitionDelay = `${index * 0.1}s`;
+                }
+                
                 observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
     // Observe elements that should animate on scroll
-    document.querySelectorAll('.vision-card, .impact-content, .stat-card, .join-card').forEach(element => {
-        element.classList.add('fade-in');
+    document.querySelectorAll('.vision-card, .impact-content, .impact-stats, .stat-card, .join-card').forEach(element => {
         observer.observe(element);
     });
 }
@@ -59,26 +66,32 @@ function initializeStatCounters() {
                 const counter = entry.target;
                 const target = parseInt(counter.textContent);
                 let count = 0;
-                const duration = 2000; // 2 seconds
-                const increment = target / (duration / 16); // 60fps
+                const duration = 2000;
+                const start = performance.now();
 
-                function updateCount() {
-                    count += increment;
-                    if (count < target) {
-                        counter.textContent = Math.floor(count) + '+';
+                function easeOutQuart(x) {
+                    return 1 - Math.pow(1 - x, 4);
+                }
+
+                function updateCount(currentTime) {
+                    const elapsed = currentTime - start;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    if (progress < 1) {
+                        count = Math.floor(easeOutQuart(progress) * target);
+                        counter.textContent = count + '+';
                         requestAnimationFrame(updateCount);
                     } else {
                         counter.textContent = target + '+';
                     }
                 }
 
-                updateCount();
+                requestAnimationFrame(updateCount);
                 observer.unobserve(counter);
             }
         });
     }, observerOptions);
 
-    // Observe stat numbers
     document.querySelectorAll('.stat-number').forEach(counter => {
         observer.observe(counter);
     });
@@ -109,60 +122,95 @@ const constitutionalQuotes = [
     "We hold these truths to be self-evident, that all men are created equal..."
 ];
 
-// Splash screen functionality
 function initializeSplashScreen() {
     const splashScreen = document.getElementById('splash-screen');
     const quoteDisplay = document.querySelector('.quote-display');
     const loadingProgress = document.querySelector('.loading-progress');
+    const mainContent = document.querySelector('main');
     
-    if (!splashScreen || !quoteDisplay || !loadingProgress) return;
+    if (!splashScreen || !quoteDisplay || !loadingProgress || !mainContent) {
+        console.error('Required elements not found');
+        return;
+    }
 
+    // Ensure main content is hidden and splash screen is visible
+    mainContent.style.opacity = '0';
+    mainContent.style.transform = 'translateY(50px)';
+    splashScreen.style.opacity = '1';
+    
     let currentQuote = 0;
     let progress = 0;
 
-    // Hide main content initially
-    document.querySelector('main').style.opacity = '0';
-    
-    // Function to update quote with fade effect
-    function updateQuote() {
+    // Display first quote immediately
+    quoteDisplay.textContent = constitutionalQuotes[0];
+    quoteDisplay.style.opacity = '1';
+
+    // Change quotes every 2 seconds
+    const quoteInterval = setInterval(() => {
+        currentQuote = (currentQuote + 1) % constitutionalQuotes.length;
         quoteDisplay.style.opacity = '0';
-        quoteDisplay.style.transform = 'translateY(20px)';
         
         setTimeout(() => {
             quoteDisplay.textContent = constitutionalQuotes[currentQuote];
             quoteDisplay.style.opacity = '1';
-            quoteDisplay.style.transform = 'translateY(0)';
-            currentQuote = (currentQuote + 1) % constitutionalQuotes.length;
         }, 500);
-    }
+    }, 2000);
 
-    // Initial quote
-    updateQuote();
-
-    // Quote rotation interval
-    const quoteInterval = setInterval(updateQuote, 3000);
-
-    // Progress bar animation
+    // Update progress bar
     const progressInterval = setInterval(() => {
-        progress += 0.5;
+        progress += 1;
         loadingProgress.style.width = `${progress}%`;
 
         if (progress >= 100) {
+            // Clear intervals
             clearInterval(progressInterval);
             clearInterval(quoteInterval);
             
-            // Fade out splash screen
-            splashScreen.style.opacity = '0';
-            splashScreen.style.transition = 'opacity 0.8s ease';
+            // Add exit animation class
+            splashScreen.classList.add('exit');
             
-            // Show main content
-            document.querySelector('main').style.opacity = '1';
-            document.querySelector('main').style.transition = 'opacity 0.8s ease';
-            
-            // Remove splash screen after fade
+            // Show main content with animation
             setTimeout(() => {
-                splashScreen.style.display = 'none';
-            }, 800);
+                mainContent.classList.add('visible');
+            }, 400);
+            
+            // Remove splash screen after animation
+            setTimeout(() => {
+                splashScreen.remove();
+            }, 1200);
         }
-    }, 30);
-} 
+    }, 50);
+}
+
+// Add header scroll effect
+function initializeHeaderScroll() {
+    const header = document.getElementById('header-container');
+    let lastScroll = 0;
+    
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        
+        // Add/remove scrolled class
+        if (currentScroll > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+        
+        lastScroll = currentScroll;
+    });
+}
+
+// Initialize everything after DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Start with splash screen
+    initializeSplashScreen();
+    
+    // Initialize other features after splash screen
+    setTimeout(() => {
+        initializeHeaderScroll();
+        initializeParticles();
+        initializeScrollAnimations();
+        initializeStatCounters();
+    }, 5500);
+}); 

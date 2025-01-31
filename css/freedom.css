@@ -18,7 +18,13 @@ main {
     flex: 1;
     width: 100%;
     opacity: 0;
-    transition: opacity 0.8s ease;
+    transform: translateY(50px);
+    transition: opacity 1s ease, transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+main.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Update root variables for patriotic theme */
@@ -37,7 +43,16 @@ main {
     background-size: cover;
 }
 
-/* Update Freedom Hero Section */
+/* Container styles */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    box-sizing: border-box;
+}
+
+/* Update section paddings */
 .freedom-hero {
     min-height: calc(100vh - var(--header-height));
     height: auto;
@@ -47,7 +62,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 6rem 1rem 4rem;
+    padding: 6rem 0 4rem;
     color: var(--white);
     will-change: transform;
 }
@@ -67,6 +82,7 @@ main {
     z-index: 2;
     text-align: center;
     max-width: 800px;
+    padding: 0 2rem;
     opacity: 0;
     transform: translateY(30px);
     animation: fadeInUp 1s ease forwards;
@@ -163,11 +179,13 @@ main {
     margin: 0 auto;
 }
 
+/* Update grid layouts */
 .vision-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
-    padding: 0 1rem;
+    margin: 0 auto;
+    max-width: 1200px;
 }
 
 .vision-card {
@@ -223,11 +241,15 @@ main {
     pointer-events: none;
 }
 
+/* Update grid layouts */
 .impact-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
 .impact-content h2 {
@@ -331,11 +353,13 @@ main {
     margin: 0 auto 3rem;
 }
 
+/* Update grid layouts */
 .join-options {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
-    padding: 0 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .join-card {
@@ -385,74 +409,23 @@ main {
     }
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .impact-grid {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-    }
-
-    .impact-stats {
-        max-width: 600px;
-        margin: 0 auto;
-    }
+/* Update section spacing */
+.vision-section,
+.impact-section,
+.join-section {
+    padding: 8rem 0;
 }
 
-@media (max-width: 768px) {
-    .hero-content h1 {
-        font-size: 3rem;
-    }
-
-    .hero-description {
-        font-size: 1.2rem;
-    }
-
-    .hero-cta {
-        flex-direction: column;
-    }
-
-    .section-header h2,
-    .impact-content h2,
-    .join-content h2 {
-        font-size: 2.5rem;
-    }
-
-    .vision-card,
-    .join-card {
-        padding: 2rem 1.5rem;
-    }
-
-    .quote-section blockquote p {
-        font-size: 1.5rem;
-    }
-    
-    .quote-section blockquote cite {
-        font-size: 1rem;
-    }
-
-    .freedom-hero {
-        background-attachment: scroll;
-    }
+.quote-section {
+    padding: 6rem 0;
 }
 
-@media (max-width: 480px) {
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
-
-    .stat-card {
-        padding: 1.5rem;
-    }
-
-    .stat-number {
-        font-size: 2rem;
-    }
+.quote-section .container {
+    max-width: 900px;
 }
 
-/* Quote Section */
 .quote-section {
     background: linear-gradient(rgba(60, 59, 110, 0.95), rgba(60, 59, 110, 0.95)), url('../images/flag5.jpg') center/cover no-repeat;
-    padding: 6rem 0;
     color: var(--white);
     position: relative;
     overflow: hidden;
@@ -515,19 +488,48 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Splash Screen Styles */
+/* Splash Screen Animation */
+@keyframes slideUp {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInUp {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Update Splash Screen Styles */
 .splash-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(rgba(60, 59, 110, 0.9), rgba(60, 59, 110, 0.9)), url('../images/flag6.jpg') center/cover no-repeat;
+    height: 100vh;
+    background: linear-gradient(rgba(60, 59, 110, 0.95), rgba(60, 59, 110, 0.95)), url('../images/flag6.jpg') center/cover no-repeat;
     z-index: 9999;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.8s ease;
+    opacity: 1;
+    transform: translateY(0);
+    transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.splash-screen.exit {
+    animation: slideUp 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .splash-content {
@@ -535,6 +537,14 @@ html {
     color: var(--white);
     padding: 2rem;
     max-width: 800px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    transform: translateY(0);
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.splash-screen.exit .splash-content {
+    transform: translateY(-50px);
 }
 
 .quote-display {
@@ -545,7 +555,8 @@ html {
     align-items: center;
     justify-content: center;
     text-align: center;
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    opacity: 0;
+    transition: opacity 0.5s ease;
     padding: 0 2rem;
     font-family: "Times New Roman", serif;
     font-style: italic;
@@ -559,9 +570,9 @@ html {
 
 .loading-bar {
     width: 100%;
-    height: 4px;
+    height: 6px;
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 2px;
+    border-radius: 3px;
     overflow: hidden;
     margin-top: 2rem;
 }
@@ -570,5 +581,210 @@ html {
     width: 0%;
     height: 100%;
     background: var(--gold-color);
-    transition: width 0.3s linear;
+    transition: width 0.05s linear;
+}
+
+/* Header Styles */
+#header-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(60, 59, 110, 0.95);
+    backdrop-filter: blur(10px);
+    transition: background 0.3s ease;
+}
+
+#header-container.scrolled {
+    background: rgba(60, 59, 110, 0.98);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Override header text colors */
+#header-container .nav-link,
+#header-container .dropdown-content a {
+    color: var(--white) !important;
+}
+
+#header-container .nav-link:hover,
+#header-container .dropdown-content a:hover {
+    color: var(--gold-color) !important;
+    transform: translateY(-2px);
+}
+
+/* Enhanced Interactivity */
+.vision-card, .stat-card, .join-card {
+    transform: translateY(0);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1),
+                opacity 0.6s cubic-bezier(0.2, 1, 0.3, 1),
+                box-shadow 0.3s ease;
+}
+
+.vision-card.visible,
+.stat-card.visible,
+.join-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.impact-content {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1),
+                opacity 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.impact-content.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.impact-stats {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1),
+                opacity 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.impact-stats.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Enhanced hover effects */
+.vision-card:hover,
+.join-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Improved button interactions */
+.primary-btn,
+.secondary-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.primary-btn::after,
+.secondary-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.primary-btn:hover::after,
+.secondary-btn:hover::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* Update responsive styles */
+@media (max-width: 1024px) {
+    .impact-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 0 2rem;
+    }
+
+    .vision-grid,
+    .join-options {
+        padding: 0 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+
+    .hero-content {
+        padding: 0 1.5rem;
+    }
+
+    .vision-grid,
+    .join-options {
+        padding: 0 1.5rem;
+        grid-template-columns: 1fr;
+    }
+
+    .impact-grid {
+        padding: 0 1.5rem;
+    }
+
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+
+    .hero-description {
+        font-size: 1.2rem;
+    }
+
+    .hero-cta {
+        flex-direction: column;
+    }
+
+    .section-header h2,
+    .impact-content h2,
+    .join-content h2 {
+        font-size: 2.5rem;
+    }
+
+    .vision-card,
+    .join-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .quote-section blockquote p {
+        font-size: 1.5rem;
+    }
+    
+    .quote-section blockquote cite {
+        font-size: 1rem;
+    }
+
+    .freedom-hero {
+        background-attachment: scroll;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 1rem;
+    }
+
+    .hero-content {
+        padding: 0 1rem;
+    }
+
+    .vision-grid,
+    .join-options,
+    .impact-grid {
+        padding: 0 1rem;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .stat-card {
+        padding: 1.5rem;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
 } 
