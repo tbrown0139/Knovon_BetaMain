@@ -143,38 +143,35 @@ function initializeSplashScreen() {
     let currentQuote = 0;
     let progress = 0;
 
-    // Function to cycle quotes with animation
-    function cycleQuote() {
-        quoteDisplay.style.transform = 'translateY(20px)';
-        quoteDisplay.style.opacity = '0';
-        
-        setTimeout(() => {
-            currentQuote = (currentQuote + 1) % constitutionalQuotes.length;
-            quoteDisplay.textContent = constitutionalQuotes[currentQuote];
-            quoteDisplay.style.transform = 'translateY(0)';
-            quoteDisplay.style.opacity = '1';
-        }, 200);
-    }
-
     // Display first quote immediately
     quoteDisplay.textContent = constitutionalQuotes[0];
     quoteDisplay.style.opacity = '1';
 
-    // Start quote cycling
-    const quoteInterval = setInterval(cycleQuote, 1200);
+    // Change quotes every 800ms
+    const quoteInterval = setInterval(() => {
+        currentQuote = (currentQuote + 1) % constitutionalQuotes.length;
+        quoteDisplay.style.opacity = '0';
+        quoteDisplay.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            quoteDisplay.textContent = constitutionalQuotes[currentQuote];
+            quoteDisplay.style.opacity = '1';
+            quoteDisplay.style.transform = 'translateY(0)';
+        }, 200);
+    }, 800);
 
-    // Update progress bar
+    // Update progress bar faster
     const progressInterval = setInterval(() => {
-        progress += 2;
+        progress += 3;
         loadingProgress.style.width = `${progress}%`;
 
         if (progress >= 100) {
             clearInterval(progressInterval);
             clearInterval(quoteInterval);
             
-            // Final quote animation out
-            quoteDisplay.style.transform = 'translateY(-20px)';
-            quoteDisplay.style.opacity = '0';
+            // Hide quotes
+            quoteContainer.style.opacity = '0';
+            quoteContainer.style.transform = 'translateY(-20px)';
             
             // Show logo
             setTimeout(() => {
@@ -186,22 +183,22 @@ function initializeSplashScreen() {
                     splashLogo.classList.add('exit');
                     splashScreen.style.opacity = '0';
                     
-                    // Show main content
+                    // Initialize main content
                     setTimeout(() => {
                         splashScreen.remove();
                         mainContent.style.opacity = '1';
                         mainContent.style.transform = 'none';
                         
-                        // Initialize features
+                        // Initialize other features
                         initializeHeaderScroll();
                         initializeParticles();
                         initializeScrollAnimations();
                         initializeStatCounters();
-                    }, 500);
-                }, 800);
+                    }, 400);
+                }, 600);
             }, 300);
         }
-    }, 20);
+    }, 15);
 }
 
 // Add header scroll effect
@@ -223,7 +220,13 @@ function initializeHeaderScroll() {
     });
 }
 
-// Initialize everything after DOM is loaded
+// Initialize everything only once when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Remove any duplicate event listeners
+    const oldMain = document.querySelector('main');
+    const newMain = oldMain.cloneNode(true);
+    oldMain.parentNode.replaceChild(newMain, oldMain);
+    
+    // Start with splash screen
     initializeSplashScreen();
 }); 
