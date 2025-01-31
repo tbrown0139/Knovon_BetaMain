@@ -144,11 +144,6 @@ function initializeSplashScreen() {
 
     // Update logo source to white version
     splashLogo.src = 'images/Knovon_White.png';
-
-    // Initialize main content features immediately
-    initializeParticles();
-    initializeScrollAnimations();
-    initializeStatCounters();
     
     let currentQuote = 0;
     let progress = 0;
@@ -158,7 +153,7 @@ function initializeSplashScreen() {
     quoteDisplay.style.opacity = '1';
     quoteDisplay.style.transform = 'translateY(0)';
 
-    // Change quotes every 4 seconds with smooth transitions
+    // Change quotes every 2 seconds with smooth transitions
     const quoteInterval = setInterval(() => {
         // Start fade out
         quoteDisplay.style.opacity = '0';
@@ -175,21 +170,12 @@ function initializeSplashScreen() {
                 quoteDisplay.style.transform = 'translateY(0)';
             }, 50);
         }, 600);
-    }, 4000);
-
-    // Start loading the main content
-    mainContent.style.opacity = '0';
-    mainContent.style.transform = 'scale(0.98)';
+    }, 2000);
 
     // Slower progress bar for longer display
     const progressInterval = setInterval(() => {
-        progress += 0.4;
+        progress += 1.5;
         loadingProgress.style.width = `${progress}%`;
-
-        // Start showing main content at 70%
-        if (progress >= 70) {
-            mainContent.classList.add('visible');
-        }
 
         if (progress >= 100) {
             clearInterval(progressInterval);
@@ -209,12 +195,19 @@ function initializeSplashScreen() {
                     
                     // Fade out splash screen
                     setTimeout(() => {
-                        splashScreen.classList.add('hidden');
+                        splashScreen.style.opacity = '0';
                         
-                        // Remove splash screen after fade
+                        // Show main content
                         setTimeout(() => {
                             splashScreen.remove();
-                        }, 1200);
+                            mainContent.style.opacity = '1';
+                            mainContent.style.transform = 'none';
+                            
+                            // Initialize features
+                            initializeParticles();
+                            initializeScrollAnimations();
+                            initializeStatCounters();
+                        }, 800);
                     }, 800);
                 }, 2000);
             }, 800);
