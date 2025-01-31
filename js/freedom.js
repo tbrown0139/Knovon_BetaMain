@@ -113,13 +113,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Constitutional quotes for splash screen
 const constitutionalQuotes = [
-    "Congress shall make no law respecting an establishment of religion, or prohibiting the free exercise thereof...",
-    "...or abridging the freedom of speech, or of the press...",
-    "...the right of the people to keep and bear Arms, shall not be infringed.",
-    "The right of the people to be secure in their persons, houses, papers, and effects...",
-    "We the People of the United States, in Order to form a more perfect Union...",
+    "Congress shall make no law respecting an establishment of religion...",
+    "Freedom of Speech shall not be infringed...",
+    "The right of the people to keep and bear Arms...",
+    "We the People of the United States...",
     "Life, Liberty and the pursuit of Happiness",
-    "We hold these truths to be self-evident, that all men are created equal..."
+    "A government of the people, by the people, for the people..."
 ];
 
 function initializeSplashScreen() {
@@ -148,7 +147,7 @@ function initializeSplashScreen() {
     quoteDisplay.textContent = constitutionalQuotes[0];
     quoteDisplay.style.opacity = '1';
 
-    // Change quotes every 2.5 seconds
+    // Change quotes faster - every 1.5 seconds
     const quoteInterval = setInterval(() => {
         currentQuote = (currentQuote + 1) % constitutionalQuotes.length;
         quoteDisplay.style.opacity = '0';
@@ -156,32 +155,32 @@ function initializeSplashScreen() {
         setTimeout(() => {
             quoteDisplay.textContent = constitutionalQuotes[currentQuote];
             quoteDisplay.style.opacity = '1';
-        }, 500);
-    }, 2500);
+        }, 300); // Faster fade transition
+    }, 1500); // Shorter display time
 
-    // Update progress bar
+    // Update progress bar faster
     const progressInterval = setInterval(() => {
-        progress += 1;
+        progress += 2; // Double the speed
         loadingProgress.style.width = `${progress}%`;
 
         if (progress >= 100) {
             clearInterval(progressInterval);
             clearInterval(quoteInterval);
             
-            // Hide quotes
+            // Quick fade for quotes
             quoteContainer.classList.add('hide');
             
-            // Show logo
+            // Faster logo sequence
             setTimeout(() => {
                 splashLogo.style.display = 'block';
                 splashLogo.classList.add('show');
                 
-                // Start exit sequence
+                // Shorter logo display
                 setTimeout(() => {
                     splashLogo.classList.add('exit');
                     splashScreen.style.opacity = '0';
                     
-                    // Initialize main content
+                    // Faster transition to main content
                     setTimeout(() => {
                         splashScreen.remove();
                         mainContent.style.opacity = '1';
@@ -192,11 +191,11 @@ function initializeSplashScreen() {
                         initializeParticles();
                         initializeScrollAnimations();
                         initializeStatCounters();
-                    }, 800);
-                }, 2000);
-            }, 600);
+                    }, 600);
+                }, 1000); // Show logo for 1 second
+            }, 400);
         }
-    }, 50);
+    }, 25); // Faster progress updates
 }
 
 // Add header scroll effect
