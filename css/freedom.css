@@ -240,7 +240,7 @@ main.visible {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('../images/flag2.jpg') center/cover no-repeat;
+    background: url('../images/gov1.jpg') center/cover no-repeat;
     opacity: 0.05;
     pointer-events: none;
 }
@@ -749,6 +749,7 @@ html {
 
     .impact-content {
         padding-right: 0;
+        max-width: 100%;
     }
 
     .impact-stats {
@@ -830,6 +831,36 @@ html {
         font-size: 2rem;
         min-height: 120px;
     }
+
+    .impact-content {
+        padding: 0 1rem;
+    }
+
+    .impact-content h2 {
+        font-size: 2.5rem;
+        word-wrap: break-word;
+        hyphens: auto;
+    }
+
+    .impact-content p {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    .impact-list li {
+        font-size: 1rem;
+        line-height: 1.4;
+        margin-bottom: 0.8rem;
+    }
+
+    .impact-grid {
+        padding: 0;
+    }
+
+    .stat-card {
+        padding: 1.5rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -864,6 +895,15 @@ html {
     }
     
     .impact-content h2 {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+    }
+
+    .impact-stats {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .stat-card {
+        padding: 1.2rem;
     }
 } 

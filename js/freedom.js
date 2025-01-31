@@ -114,15 +114,19 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Inspiring constitutional and freedom quotes
 const constitutionalQuotes = [
     "We hold these truths to be self-evident, that all men are created equal...",
-    "Give me liberty, or give me death!",
-    "Freedom is never more than one generation away from extinction",
-    "The tree of liberty must be refreshed from time to time",
-    "Liberty, when it begins to take root, is a plant of rapid growth",
-    "Where liberty dwells, there is my country",
-    "Those who deny freedom to others deserve it not for themselves",
-    "Freedom is not a gift bestowed upon us by other men, but a right that belongs to us by the laws of God and nature",
-    "Let freedom ring from every mountainside",
-    "America was built on courage, on imagination, and an unbeatable determination"
+    "Give me liberty, or give me death! - Patrick Henry",
+    "Freedom is never more than one generation away from extinction - Ronald Reagan",
+    "The tree of liberty must be refreshed from time to time - Thomas Jefferson",
+    "Liberty, when it begins to take root, is a plant of rapid growth - George Washington",
+    "Where liberty dwells, there is my country - Benjamin Franklin",
+    "Those who deny freedom to others deserve it not for themselves - Abraham Lincoln",
+    "Let freedom ring from every mountainside - Martin Luther King Jr.",
+    "America was built on courage, on imagination, and an unbeatable determination",
+    "The Constitution is the guide which I never will abandon - George Washington",
+    "Our Constitution was made only for a moral and religious people - John Adams",
+    "The advancement of liberty is the path to both security and prosperity",
+    "A Constitution of Government once changed from Freedom, can never be restored - John Adams",
+    "The price of freedom is eternal vigilance - Thomas Jefferson"
 ];
 
 function initializeSplashScreen() {
@@ -152,7 +156,7 @@ function initializeSplashScreen() {
     quoteDisplay.style.opacity = '1';
     quoteDisplay.style.transform = 'translateY(0)';
 
-    // Change quotes every 2 seconds
+    // Change quotes every 3 seconds with smooth transitions
     const quoteInterval = setInterval(() => {
         quoteDisplay.style.opacity = '0';
         quoteDisplay.style.transform = 'translateY(20px)';
@@ -162,12 +166,12 @@ function initializeSplashScreen() {
             quoteDisplay.textContent = constitutionalQuotes[currentQuote];
             quoteDisplay.style.opacity = '1';
             quoteDisplay.style.transform = 'translateY(0)';
-        }, 400);
-    }, 2000);
+        }, 500);
+    }, 3000);
 
-    // Update progress bar
+    // Slower progress bar for longer display
     const progressInterval = setInterval(() => {
-        progress += 1.5;
+        progress += 0.8;
         loadingProgress.style.width = `${progress}%`;
 
         if (progress >= 100) {
@@ -198,11 +202,11 @@ function initializeSplashScreen() {
                         initializeParticles();
                         initializeScrollAnimations();
                         initializeStatCounters();
-                    }, 500);
-                }, 1000);
-            }, 400);
+                    }, 600);
+                }, 1500);
+            }, 500);
         }
-    }, 30);
+    }, 50);
 }
 
 // Add header scroll effect
