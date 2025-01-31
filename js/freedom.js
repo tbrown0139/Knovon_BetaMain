@@ -127,8 +127,10 @@ function initializeSplashScreen() {
     const quoteDisplay = document.querySelector('.quote-display');
     const loadingProgress = document.querySelector('.loading-progress');
     const mainContent = document.querySelector('main');
+    const quoteContainer = document.querySelector('.quote-container');
+    const splashLogo = document.querySelector('.splash-logo');
     
-    if (!splashScreen || !quoteDisplay || !loadingProgress || !mainContent) {
+    if (!splashScreen || !quoteDisplay || !loadingProgress || !mainContent || !quoteContainer || !splashLogo) {
         console.error('Required elements not found');
         return;
     }
@@ -166,18 +168,29 @@ function initializeSplashScreen() {
             clearInterval(progressInterval);
             clearInterval(quoteInterval);
             
-            // Add exit animation class
-            splashScreen.classList.add('exit');
+            // Hide quotes and show logo
+            quoteContainer.classList.add('hide');
             
-            // Show main content with animation
+            // Show logo after quotes fade out
             setTimeout(() => {
-                mainContent.classList.add('visible');
-            }, 400);
-            
-            // Remove splash screen after animation
-            setTimeout(() => {
-                splashScreen.remove();
-            }, 1200);
+                splashLogo.classList.add('show');
+                
+                // Start exit sequence after logo animation
+                setTimeout(() => {
+                    splashLogo.classList.add('exit');
+                    splashScreen.classList.add('exit');
+                    
+                    // Show main content
+                    setTimeout(() => {
+                        mainContent.classList.add('visible');
+                    }, 400);
+                    
+                    // Remove splash screen
+                    setTimeout(() => {
+                        splashScreen.remove();
+                    }, 1200);
+                }, 2000); // Show logo for 2 seconds
+            }, 500); // Wait for quotes to fade out
         }
     }, 50);
 }
