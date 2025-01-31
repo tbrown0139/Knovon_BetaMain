@@ -111,14 +111,18 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Constitutional quotes for splash screen
+// Inspiring constitutional and freedom quotes
 const constitutionalQuotes = [
-    "Congress shall make no law respecting an establishment of religion...",
-    "Freedom of Speech shall not be infringed...",
-    "The right of the people to keep and bear Arms...",
-    "We the People of the United States...",
-    "Life, Liberty and the pursuit of Happiness",
-    "A government of the people, by the people, for the people..."
+    "We hold these truths to be self-evident, that all men are created equal...",
+    "Give me liberty, or give me death!",
+    "Freedom is never more than one generation away from extinction",
+    "The tree of liberty must be refreshed from time to time",
+    "Liberty, when it begins to take root, is a plant of rapid growth",
+    "Where liberty dwells, there is my country",
+    "Those who deny freedom to others deserve it not for themselves",
+    "Freedom is not a gift bestowed upon us by other men, but a right that belongs to us by the laws of God and nature",
+    "Let freedom ring from every mountainside",
+    "America was built on courage, on imagination, and an unbeatable determination"
 ];
 
 function initializeSplashScreen() {
@@ -146,30 +150,31 @@ function initializeSplashScreen() {
     // Display first quote immediately
     quoteDisplay.textContent = constitutionalQuotes[0];
     quoteDisplay.style.opacity = '1';
+    quoteDisplay.style.transform = 'translateY(0)';
 
-    // Change quotes every 800ms
+    // Change quotes every 2 seconds
     const quoteInterval = setInterval(() => {
-        currentQuote = (currentQuote + 1) % constitutionalQuotes.length;
         quoteDisplay.style.opacity = '0';
         quoteDisplay.style.transform = 'translateY(20px)';
         
         setTimeout(() => {
+            currentQuote = (currentQuote + 1) % constitutionalQuotes.length;
             quoteDisplay.textContent = constitutionalQuotes[currentQuote];
             quoteDisplay.style.opacity = '1';
             quoteDisplay.style.transform = 'translateY(0)';
-        }, 200);
-    }, 800);
+        }, 400);
+    }, 2000);
 
-    // Update progress bar faster
+    // Update progress bar
     const progressInterval = setInterval(() => {
-        progress += 3;
+        progress += 1.5;
         loadingProgress.style.width = `${progress}%`;
 
         if (progress >= 100) {
             clearInterval(progressInterval);
             clearInterval(quoteInterval);
             
-            // Hide quotes
+            // Final quote fade out
             quoteContainer.style.opacity = '0';
             quoteContainer.style.transform = 'translateY(-20px)';
             
@@ -183,22 +188,21 @@ function initializeSplashScreen() {
                     splashLogo.classList.add('exit');
                     splashScreen.style.opacity = '0';
                     
-                    // Initialize main content
+                    // Show main content
                     setTimeout(() => {
                         splashScreen.remove();
                         mainContent.style.opacity = '1';
                         mainContent.style.transform = 'none';
                         
-                        // Initialize other features
-                        initializeHeaderScroll();
+                        // Initialize features
                         initializeParticles();
                         initializeScrollAnimations();
                         initializeStatCounters();
-                    }, 400);
-                }, 600);
-            }, 300);
+                    }, 500);
+                }, 1000);
+            }, 400);
         }
-    }, 15);
+    }, 30);
 }
 
 // Add header scroll effect
@@ -220,13 +224,7 @@ function initializeHeaderScroll() {
     });
 }
 
-// Initialize everything only once when DOM is loaded
+// Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // Remove any duplicate event listeners
-    const oldMain = document.querySelector('main');
-    const newMain = oldMain.cloneNode(true);
-    oldMain.parentNode.replaceChild(newMain, oldMain);
-    
-    // Start with splash screen
     initializeSplashScreen();
 }); 
