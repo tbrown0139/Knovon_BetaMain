@@ -135,10 +135,11 @@ function initializeSplashScreen() {
         return;
     }
 
-    // Ensure main content is hidden and splash screen is visible
+    // Update logo source to white version
+    splashLogo.src = 'images/Knovon_White.png';
+
+    // Ensure main content is hidden initially
     mainContent.style.opacity = '0';
-    mainContent.style.transform = 'translateY(50px)';
-    splashScreen.style.opacity = '1';
     
     let currentQuote = 0;
     let progress = 0;
@@ -147,7 +148,7 @@ function initializeSplashScreen() {
     quoteDisplay.textContent = constitutionalQuotes[0];
     quoteDisplay.style.opacity = '1';
 
-    // Change quotes every 2 seconds
+    // Change quotes every 2.5 seconds
     const quoteInterval = setInterval(() => {
         currentQuote = (currentQuote + 1) % constitutionalQuotes.length;
         quoteDisplay.style.opacity = '0';
@@ -156,7 +157,7 @@ function initializeSplashScreen() {
             quoteDisplay.textContent = constitutionalQuotes[currentQuote];
             quoteDisplay.style.opacity = '1';
         }, 500);
-    }, 2000);
+    }, 2500);
 
     // Update progress bar
     const progressInterval = setInterval(() => {
@@ -164,33 +165,36 @@ function initializeSplashScreen() {
         loadingProgress.style.width = `${progress}%`;
 
         if (progress >= 100) {
-            // Clear intervals
             clearInterval(progressInterval);
             clearInterval(quoteInterval);
             
-            // Hide quotes and show logo
+            // Hide quotes
             quoteContainer.classList.add('hide');
             
-            // Show logo after quotes fade out
+            // Show logo
             setTimeout(() => {
+                splashLogo.style.display = 'block';
                 splashLogo.classList.add('show');
                 
-                // Start exit sequence after logo animation
+                // Start exit sequence
                 setTimeout(() => {
                     splashLogo.classList.add('exit');
-                    splashScreen.classList.add('exit');
+                    splashScreen.style.opacity = '0';
                     
-                    // Show main content
-                    setTimeout(() => {
-                        mainContent.classList.add('visible');
-                    }, 400);
-                    
-                    // Remove splash screen
+                    // Initialize main content
                     setTimeout(() => {
                         splashScreen.remove();
-                    }, 1200);
-                }, 2000); // Show logo for 2 seconds
-            }, 500); // Wait for quotes to fade out
+                        mainContent.style.opacity = '1';
+                        mainContent.style.transform = 'none';
+                        
+                        // Initialize other features
+                        initializeHeaderScroll();
+                        initializeParticles();
+                        initializeScrollAnimations();
+                        initializeStatCounters();
+                    }, 800);
+                }, 2000);
+            }, 600);
         }
     }, 50);
 }
@@ -216,14 +220,5 @@ function initializeHeaderScroll() {
 
 // Initialize everything after DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // Start with splash screen
     initializeSplashScreen();
-    
-    // Initialize other features after splash screen
-    setTimeout(() => {
-        initializeHeaderScroll();
-        initializeParticles();
-        initializeScrollAnimations();
-        initializeStatCounters();
-    }, 5500);
 }); 

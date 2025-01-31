@@ -94,6 +94,8 @@ main.visible {
     margin-bottom: 1.5rem;
     line-height: 1.2;
     letter-spacing: -0.02em;
+    color: var(--white);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero-description {
@@ -101,6 +103,8 @@ main.visible {
     margin-bottom: 2.5rem;
     opacity: 0.9;
     line-height: 1.6;
+    color: var(--white);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .hero-cta {
@@ -250,6 +254,11 @@ main.visible {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
+    box-sizing: border-box;
+}
+
+.impact-content {
+    padding-right: 2rem;
 }
 
 .impact-content h2 {
@@ -264,11 +273,13 @@ main.visible {
     color: var(--text-color);
     opacity: 0.8;
     margin-bottom: 2rem;
+    max-width: 100%;
 }
 
 .impact-list {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .impact-list li {
@@ -289,6 +300,9 @@ main.visible {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 2rem;
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
 }
 
 .stat-card {
@@ -511,19 +525,20 @@ html {
     }
 }
 
-/* Update Splash Screen Styles */
+/* Clean Splash Screen Styles */
 .splash-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/constitution.jpg') center/cover no-repeat;
+    background: var(--secondary-color);
     z-index: 9999;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 1;
+    transition: opacity 0.8s ease;
 }
 
 .splash-content {
@@ -531,8 +546,6 @@ html {
     color: var(--white);
     padding: 2rem;
     max-width: 800px;
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 20px;
     position: relative;
 }
 
@@ -545,34 +558,53 @@ html {
     opacity: 0;
 }
 
+.quote-display {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    padding: 0 2rem;
+    font-family: "Times New Roman", serif;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--white);
+}
+
+.loading-bar {
+    width: 200px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 2rem auto 0;
+    overflow: hidden;
+}
+
+.loading-progress {
+    width: 0%;
+    height: 100%;
+    background: var(--white);
+    transition: width 0.05s linear;
+}
+
 .splash-logo {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.5);
+    transform: translate(-50%, -50%) scale(0.8);
     opacity: 0;
-    width: 200px;
+    width: 250px;
     height: auto;
     display: none;
 }
 
-.splash-logo.show {
-    display: block;
-    animation: logoReveal 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.splash-logo.exit {
-    animation: logoOut 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
 @keyframes logoReveal {
     0% {
-        transform: translate(-50%, -50%) scale(0.5);
+        transform: translate(-50%, -50%) scale(0.8);
         opacity: 0;
-    }
-    50% {
-        transform: translate(-50%, -50%) scale(1.2);
-        opacity: 1;
     }
     100% {
         transform: translate(-50%, -50%) scale(1);
@@ -586,57 +618,18 @@ html {
         opacity: 1;
     }
     100% {
-        transform: translate(-50%, -50%) scale(1.5);
+        transform: translate(-50%, -50%) scale(1.2);
         opacity: 0;
     }
 }
 
-@keyframes slideUp {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
+.splash-logo.show {
+    display: block;
+    animation: logoReveal 1.2s ease forwards;
 }
 
-.quote-display {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    min-height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    padding: 0 2rem;
-    font-family: "Times New Roman", serif;
-    font-style: italic;
-    line-height: 1.4;
-}
-
-.quote-display.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.loading-bar {
-    width: 100%;
-    height: 6px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-    overflow: hidden;
-    margin-top: 2rem;
-}
-
-.loading-progress {
-    width: 0%;
-    height: 100%;
-    background: var(--gold-color);
-    transition: width 0.05s linear;
+.splash-logo.exit {
+    animation: logoOut 0.8s ease forwards;
 }
 
 /* Header Styles */
@@ -649,6 +642,7 @@ html {
     background: rgba(60, 59, 110, 0.95);
     backdrop-filter: blur(10px);
     transition: background 0.3s ease;
+    height: var(--header-height, 80px);
 }
 
 #header-container.scrolled {
@@ -755,6 +749,16 @@ html {
         padding: 0 2rem;
     }
 
+    .impact-content {
+        padding-right: 0;
+    }
+
+    .impact-stats {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0;
+    }
+
     .vision-grid,
     .join-options {
         padding: 0 2rem;
@@ -842,4 +846,21 @@ html {
     .stat-number {
         font-size: 2rem;
     }
+
+    .impact-grid {
+        padding: 0 1rem;
+    }
+    
+    .impact-content h2 {
+        font-size: 2.5rem;
+    }
+}
+
+.nav-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 } 
