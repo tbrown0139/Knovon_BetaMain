@@ -143,59 +143,65 @@ function initializeSplashScreen() {
     let currentQuote = 0;
     let progress = 0;
 
+    // Function to cycle quotes with animation
+    function cycleQuote() {
+        quoteDisplay.style.transform = 'translateY(20px)';
+        quoteDisplay.style.opacity = '0';
+        
+        setTimeout(() => {
+            currentQuote = (currentQuote + 1) % constitutionalQuotes.length;
+            quoteDisplay.textContent = constitutionalQuotes[currentQuote];
+            quoteDisplay.style.transform = 'translateY(0)';
+            quoteDisplay.style.opacity = '1';
+        }, 200);
+    }
+
     // Display first quote immediately
     quoteDisplay.textContent = constitutionalQuotes[0];
     quoteDisplay.style.opacity = '1';
 
-    // Change quotes faster - every 1.5 seconds
-    const quoteInterval = setInterval(() => {
-        currentQuote = (currentQuote + 1) % constitutionalQuotes.length;
-        quoteDisplay.style.opacity = '0';
-        
-        setTimeout(() => {
-            quoteDisplay.textContent = constitutionalQuotes[currentQuote];
-            quoteDisplay.style.opacity = '1';
-        }, 300); // Faster fade transition
-    }, 1500); // Shorter display time
+    // Start quote cycling
+    const quoteInterval = setInterval(cycleQuote, 1200);
 
-    // Update progress bar faster
+    // Update progress bar
     const progressInterval = setInterval(() => {
-        progress += 2; // Double the speed
+        progress += 2;
         loadingProgress.style.width = `${progress}%`;
 
         if (progress >= 100) {
             clearInterval(progressInterval);
             clearInterval(quoteInterval);
             
-            // Quick fade for quotes
-            quoteContainer.classList.add('hide');
+            // Final quote animation out
+            quoteDisplay.style.transform = 'translateY(-20px)';
+            quoteDisplay.style.opacity = '0';
             
-            // Faster logo sequence
+            // Show logo
             setTimeout(() => {
                 splashLogo.style.display = 'block';
                 splashLogo.classList.add('show');
                 
-                // Shorter logo display
+                // Exit sequence
                 setTimeout(() => {
                     splashLogo.classList.add('exit');
                     splashScreen.style.opacity = '0';
                     
-                    // Faster transition to main content
+                    // Show main content
                     setTimeout(() => {
                         splashScreen.remove();
                         mainContent.style.opacity = '1';
                         mainContent.style.transform = 'none';
                         
-                        // Initialize other features
+                        // Initialize features
                         initializeHeaderScroll();
                         initializeParticles();
                         initializeScrollAnimations();
                         initializeStatCounters();
-                    }, 600);
-                }, 1000); // Show logo for 1 second
-            }, 400);
+                    }, 500);
+                }, 800);
+            }, 300);
         }
-    }, 25); // Faster progress updates
+    }, 20);
 }
 
 // Add header scroll effect

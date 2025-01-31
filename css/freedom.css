@@ -538,7 +538,7 @@ html {
     align-items: center;
     justify-content: center;
     opacity: 1;
-    transition: opacity 0.8s ease;
+    transition: opacity 0.5s ease;
 }
 
 .splash-content {
@@ -567,7 +567,8 @@ html {
     justify-content: center;
     text-align: center;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
     padding: 0 2rem;
     font-family: "Times New Roman", serif;
     font-style: italic;
@@ -606,6 +607,10 @@ html {
         transform: translate(-50%, -50%) scale(0.8);
         opacity: 0;
     }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 1;
+    }
     100% {
         transform: translate(-50%, -50%) scale(1);
         opacity: 1;
@@ -625,11 +630,11 @@ html {
 
 .splash-logo.show {
     display: block;
-    animation: logoReveal 1.2s ease forwards;
+    animation: logoReveal 0.8s ease forwards;
 }
 
 .splash-logo.exit {
-    animation: logoOut 0.8s ease forwards;
+    animation: logoOut 0.6s ease forwards;
 }
 
 /* Header Styles */
