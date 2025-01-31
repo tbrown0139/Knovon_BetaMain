@@ -145,8 +145,10 @@ function initializeSplashScreen() {
     // Update logo source to white version
     splashLogo.src = 'images/Knovon_White.png';
 
-    // Ensure main content is hidden initially
-    mainContent.style.opacity = '0';
+    // Initialize main content features immediately
+    initializeParticles();
+    initializeScrollAnimations();
+    initializeStatCounters();
     
     let currentQuote = 0;
     let progress = 0;
@@ -156,33 +158,47 @@ function initializeSplashScreen() {
     quoteDisplay.style.opacity = '1';
     quoteDisplay.style.transform = 'translateY(0)';
 
-    // Change quotes every 3 seconds with smooth transitions
+    // Change quotes every 4 seconds with smooth transitions
     const quoteInterval = setInterval(() => {
+        // Start fade out
         quoteDisplay.style.opacity = '0';
         quoteDisplay.style.transform = 'translateY(20px)';
         
+        // Change quote after fade out
         setTimeout(() => {
             currentQuote = (currentQuote + 1) % constitutionalQuotes.length;
             quoteDisplay.textContent = constitutionalQuotes[currentQuote];
-            quoteDisplay.style.opacity = '1';
-            quoteDisplay.style.transform = 'translateY(0)';
-        }, 500);
-    }, 3000);
+            
+            // Start fade in
+            setTimeout(() => {
+                quoteDisplay.style.opacity = '1';
+                quoteDisplay.style.transform = 'translateY(0)';
+            }, 50);
+        }, 600);
+    }, 4000);
+
+    // Start loading the main content
+    mainContent.style.opacity = '0';
+    mainContent.style.transform = 'scale(0.98)';
 
     // Slower progress bar for longer display
     const progressInterval = setInterval(() => {
-        progress += 0.8;
+        progress += 0.4;
         loadingProgress.style.width = `${progress}%`;
+
+        // Start showing main content at 70%
+        if (progress >= 70) {
+            mainContent.classList.add('visible');
+        }
 
         if (progress >= 100) {
             clearInterval(progressInterval);
             clearInterval(quoteInterval);
             
-            // Final quote fade out
-            quoteContainer.style.opacity = '0';
-            quoteContainer.style.transform = 'translateY(-20px)';
+            // Smooth transition to logo
+            quoteContainer.classList.add('fade-out');
             
-            // Show logo
+            // Show logo with delay
             setTimeout(() => {
                 splashLogo.style.display = 'block';
                 splashLogo.classList.add('show');
@@ -190,21 +206,18 @@ function initializeSplashScreen() {
                 // Exit sequence
                 setTimeout(() => {
                     splashLogo.classList.add('exit');
-                    splashScreen.style.opacity = '0';
                     
-                    // Show main content
+                    // Fade out splash screen
                     setTimeout(() => {
-                        splashScreen.remove();
-                        mainContent.style.opacity = '1';
-                        mainContent.style.transform = 'none';
+                        splashScreen.classList.add('hidden');
                         
-                        // Initialize features
-                        initializeParticles();
-                        initializeScrollAnimations();
-                        initializeStatCounters();
-                    }, 600);
-                }, 1500);
-            }, 500);
+                        // Remove splash screen after fade
+                        setTimeout(() => {
+                            splashScreen.remove();
+                        }, 1200);
+                    }, 800);
+                }, 2000);
+            }, 800);
         }
     }, 50);
 }
